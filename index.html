@@ -1,1026 +1,1365 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth">
+<html lang="zh-Hant-HK" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LumiScience - 科技守護天生美態 | 膚無瑕透亮光感</title>
-    <!-- SEO & Accessibility -->
-    <meta name="description" content="LumiScience 結合前沿科研與自然美學，為您帶來極致的肌膚無瑕透亮光感。日本製造，科學守護天生美態。">
-    <!-- Google Fonts: Inter (San-serif for readability) & Caveat (Handwritten style for LumiScience Brand) -->
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="LumiScience 結合前沿細胞修護科技與大自然珍稀成分，深層煥活肌底細胞，重現原生的透亮肌膚。日本製造，科學美容首選。">
+    <meta name="keywords" content="LumiScience, 護膚品, 日本製造, 胜肽精華, 透亮肌膚, 科研美容, 永續美容">
+
+    <!-- Fonts: Noto Sans HK & Nunito Sans & Custom Handwritten Cursive Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Noto+Sans+HK:wght@300;400;500;700;900&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for sleek scientific and social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Inline Styles for Custom Interactions & WCAG Compliant Overrides -->
+    <style>
+        body {
+            font-family: 'Nunito Sans', 'Noto Sans HK', sans-serif;
+            background-color: #FFFFFF;
+            color: #2D2D2D;
+            overflow-x: hidden;
+        }
+
+        /* Handwritten font style for the brand */
+        .brand-handwritten {
+            font-family: 'Alex Brush', cursive;
+        }
+
+        /* Glistening/Shining Text Effect for the main title */
+        .shimmer-text {
+            background: linear-gradient(
+                120deg,
+                #7d3664 0%,
+                #E27396 25%,
+                #ffffff 50%,
+                #E27396 75%,
+                #7d3664 100%
+            );
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Custom Micro-interactions & animations */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(125, 54, 100, 0.1);
+        }
+
+        /* Pulse and flow effects for scientific feel */
+        .glow-pulse {
+            animation: slow-glow 3s ease-in-out infinite alternate;
+        }
+        @keyframes slow-glow {
+            0% { box-shadow: 0 0 10px rgba(239, 207, 227, 0.4); }
+            100% { box-shadow: 0 0 25px rgba(226, 115, 150, 0.7); }
+        }
+
+        /* Accessibility: high contrast focused element rings */
+        *:focus-visible {
+            outline: 3px solid #7d3664 !important;
+            outline-offset: 2px;
+        }
+
+        /* Custom scrollbar matching design palette */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFFFF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #EFCFE3;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E27396;
+        }
+
+        /* Molecular canvas styling */
+        #molecule-canvas {
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* Typewriter Cursor */
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+
+    <!-- Configure Tailwind theme colors to perfectly match brand design tokens -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        handwritten: ['Caveat', 'cursive'],
-                    },
                     colors: {
-                        lumipink: {
-                            50: '#fff5f6',
-                            100: '#ffebe2',
-                            200: '#ffd3c7',
-                            300: '#fcaaa2',
-                            400: '#f57a7b',
-                            500: '#e54d5e', // Strong primary with high contrast
-                            600: '#d23348',
-                            900: '#67111e',
-                        },
-                        lumislate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            800: '#1e293b', // WCAG AAA Contrast against light backgrounds
-                            900: '#0f172a',
-                            950: '#030712',
-                        }
-                    },
-                    animation: {
-                        'shimmer': 'shimmer 3s infinite linear',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% center' },
-                            '100%': { backgroundPosition: '200% center' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                        lumiprimary: '#EFCFE3',   // Soft blush pink
+                        lumisecondary: '#E27396', // Radiant Rose
+                        lumiaccent: '#7d3664',    // Deep Royal Wine (High Contrast WCAG AA Text)
+                        lumidark: '#2D2D2D',      // Dark Charcoal
+                        lumigrey: '#666666',      // Slate Grey for supportive texts
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome for accessible icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Custom Glowing & Shimmer Styling with deep contrast */
-        .shimmer-text {
-            background: linear-gradient(to right, #ffffff 20%, #ffd3c7 40%, #ffffff 60%, #ffd3c7 80%, #ffffff 100%);
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: shimmer 4s linear infinite;
-        }
-        
-        .dark-shimmer-text {
-            background: linear-gradient(to right, #0f172a 20%, #d23348 40%, #0f172a 60%, #d23348 80%, #0f172a 100%);
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: shimmer 4s linear infinite;
-        }
-
-        /* Glassmorphism utility */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .dark-glass-panel {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Customized Hide Scrollbar for interactive modules */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
 </head>
-<body class="bg-lumislate-50 text-lumislate-800 font-sans antialiased selection:bg-lumipink-200 selection:text-lumipink-900">
+<body class="relative min-h-screen">
 
-    <!-- Accessible Navigation Bar -->
-    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="main-header">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between" aria-label="主要導航">
-            <!-- Brand Logo with handwritten font element -->
-            <a href="#" class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-lumipink-400 rounded-lg p-1" aria-label="LumiScience 首頁">
-                <span class="font-handwritten text-4xl text-white tracking-wide transition-transform hover:scale-105 duration-300 drop-shadow-[0_2px_10px_rgba(229,77,94,0.4)]">LumiScience</span>
+    <!-- Accessible Skip Link for Keyboard Users -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-lumiaccent text-white px-4 py-2 rounded-lg z-50 font-bold">
+        跳過導覽，直接閱讀主內容
+    </a>
+
+    <!-- Top Banner: Sustainability Announcement (WCAG Compliant contrasting bar) -->
+    <div class="bg-lumiaccent text-white text-center py-2 px-4 text-xs sm:text-sm font-semibold tracking-wide">
+        <span class="inline-block mr-2" aria-hidden="true">🌱</span> 100% 永續環保包裝 & 全素配方零殘忍護膚科研
+    </div>
+
+    <!-- Sticky Elegant Navigation -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-lumiprimary/30 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Handcrafted Logo with high-contrast accessibility context -->
+            <a href="#" class="flex flex-col focus:outline-none" aria-label="LumiScience 首頁">
+                <span class="brand-handwritten text-4xl font-bold text-lumiaccent tracking-wide leading-none py-1">
+                    LumiScience
+                </span>
+                <span class="text-[9px] uppercase tracking-widest text-lumisecondary font-bold ml-1">
+                    Cosmeceutical Lab
+                </span>
             </a>
 
-            <!-- Desktop Nav Items -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#products" class="text-white hover:text-lumipink-200 text-sm font-medium tracking-wider transition-colors duration-200">科技成分</a>
-                <a href="#diagnosis" class="text-white hover:text-lumipink-200 text-sm font-medium tracking-wider transition-colors duration-200">肌膚診斷</a>
-                <a href="#showcase" class="text-white hover:text-lumipink-200 text-sm font-medium tracking-wider transition-colors duration-200">系列產品</a>
-                <a href="#reviews" class="text-white hover:text-lumipink-200 text-sm font-medium tracking-wider transition-colors duration-200">用家見證</a>
-            </div>
-
-            <!-- Header CTA & Mobile Menu Toggle -->
-            <div class="flex items-center space-x-4">
-                <a href="#diagnosis" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest text-lumislate-900 bg-white hover:bg-lumipink-100 hover:text-lumipink-600 shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:ring-lumipink-400">
-                    智能測驗
+            <!-- Desktop Nav Items (Semantic Markup, accessible roles, contrast ratio compliant) -->
+            <nav class="hidden md:flex items-center space-x-8" aria-label="主要導覽">
+                <a href="#hero" class="text-lumidark hover:text-lumiaccent font-semibold transition-colors duration-200">首頁</a>
+                <a href="#diagnostic" class="text-lumidark hover:text-lumiaccent font-semibold transition-colors duration-200 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-lumisecondary animate-pulse"></span>
+                    肌膚診斷
                 </a>
-                <button id="menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-md text-white hover:text-lumipink-200 focus:outline-none focus:ring-2 focus:ring-lumipink-400" aria-expanded="false" aria-controls="mobile-menu" aria-label="切換選單">
+                <a href="#products" class="text-lumidark hover:text-lumiaccent font-semibold transition-colors duration-200">科研系列</a>
+                <a href="#testimonials" class="text-lumidark hover:text-lumiaccent font-semibold transition-colors duration-200">真實評價</a>
+                <a href="#promotion" class="text-lumidark hover:text-lumiaccent font-semibold transition-colors duration-200">最新企劃</a>
+            </nav>
+
+            <!-- Desktop & Mobile Right CTA Area -->
+            <div class="flex items-center space-x-4">
+                <a href="#diagnostic" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-bold tracking-widest text-white bg-lumiaccent hover:bg-[#63294e] rounded-full uppercase shadow-md transition-all duration-300 transform hover:scale-105" aria-label="開始進行肌膚問題診斷測驗">
+                    Skin Test
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-lumidark hover:text-lumiaccent focus:outline-none" aria-expanded="false" aria-controls="mobile-nav" aria-label="打開選單">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-        </nav>
+        </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-6 bg-lumislate-950/95 backdrop-blur-lg border-b border-white/10" aria-label="行動版導航">
-            <div class="space-y-4 flex flex-col pt-4">
-                <a href="#products" class="text-white hover:text-lumipink-200 text-base font-medium tracking-wider block py-2 border-b border-white/5">科技成分</a>
-                <a href="#diagnosis" class="text-white hover:text-lumipink-200 text-base font-medium tracking-wider block py-2 border-b border-white/5">肌膚診斷</a>
-                <a href="#showcase" class="text-white hover:text-lumipink-200 text-base font-medium tracking-wider block py-2 border-b border-white/5">系列產品</a>
-                <a href="#reviews" class="text-white hover:text-lumipink-200 text-base font-medium tracking-wider block py-2">用家見證</a>
-                <a href="#diagnosis" class="w-full inline-flex items-center justify-center px-5 py-3 rounded-full text-sm font-semibold tracking-widest text-white bg-lumipink-500 hover:bg-lumipink-600 transition-colors duration-300">
-                    立即開始肌膚檢測
+        <!-- Mobile Dynamic Navigation menu (Hidden by default) -->
+        <div id="mobile-nav" class="hidden md:hidden border-t border-lumiprimary/30 bg-white shadow-lg transition-all duration-300">
+            <nav class="px-4 pt-2 pb-6 space-y-3 flex flex-col" aria-label="行動版導覽">
+                <a href="#hero" class="text-lumidark hover:text-lumiaccent font-semibold py-2 transition-all">首頁</a>
+                <a href="#diagnostic" class="text-lumidark hover:text-lumiaccent font-semibold py-2 transition-all flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-lumisecondary animate-ping"></span>
+                    肌膚診斷測驗
                 </a>
-            </div>
+                <a href="#products" class="text-lumidark hover:text-lumiaccent font-semibold py-2 transition-all">科研系列</a>
+                <a href="#testimonials" class="text-lumidark hover:text-lumiaccent font-semibold py-2 transition-all">真實評價</a>
+                <a href="#promotion" class="text-lumidark hover:text-lumiaccent font-semibold py-2 transition-all">最新企劃</a>
+                <a href="#diagnostic" class="inline-block text-center px-6 py-3 text-sm font-bold tracking-widest text-white bg-lumiaccent hover:bg-[#63294e] rounded-full uppercase shadow-md transition-all">
+                    開始肌膚問題診斷
+                </a>
+            </nav>
         </div>
     </header>
 
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-lumislate-950 text-white pt-20" aria-label="LumiScience 品牌精髓">
-            <!-- Fullscreen Background Image -->
+    <!-- Main Container -->
+    <main id="main-content" class="relative">
+
+        <!-- Hero Section: Full screen with interactive background, typewriter effects & shimmering headline -->
+        <section id="hero" class="relative min-h-[95vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-slate-900 text-white pt-24 pb-32 sm:pb-36" aria-label="LumiScience 品牌核心">
+            
+            <!-- Hero Background Photo: High quality, premium fallback handled with alt text representation -->
             <div class="absolute inset-0 z-0">
-                <img src="HeroSection_BG.png" alt="LumiScience 科研精華與浪漫流光背景" class="w-full h-full object-cover opacity-80 scale-105 animate-pulse-slow">
-                <div class="absolute inset-0 bg-gradient-to-t from-lumislate-950 via-lumislate-950/40 to-lumislate-950/60"></div>
+                <img src="HeroSection_BG.jpg" alt="LumiScience 璀璨科學美學背景圖" class="w-full h-full object-cover opacity-85 select-none" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             </div>
 
-            <!-- Molecular interactive Canvas Backdrop -->
-            <canvas id="molecule-canvas" class="absolute inset-0 z-10 pointer-events-none opacity-60"></canvas>
+            <!-- HTML5 Scientific Canvas Overlay for Molecules and bonding chemistry effect -->
+            <canvas id="molecule-canvas" class="absolute inset-0 z-10 w-full h-full" aria-hidden="true"></canvas>
 
-            <!-- Hero Main Contents -->
-            <div class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
                 
-                <!-- Subtitle with futuristic badge design -->
-                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-6 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transform hover:scale-105 transition-transform duration-300">
-                    <span class="w-2 h-2 rounded-full bg-lumipink-300 animate-ping"></span>
-                    <span class="text-xs sm:text-sm font-semibold tracking-widest text-lumipink-100 uppercase" style="letter-spacing: 0.3em;">科技守護天生美態</span>
+                <!-- Brand Handwritten accent (White) -->
+                <div class="brand-handwritten text-5xl sm:text-7xl text-white tracking-widest mb-4 opacity-0 animate-[fadeIn_1.2s_ease-out_forwards]">
+                    LumiScience
                 </div>
 
-                <!-- Main Title with Typing Effect & Custom Shimmering/Sparkling Layout -->
-                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-8 leading-tight">
-                    <span id="typing-text" class="shimmer-text block drop-shadow-[0_4px_20px_rgba(255,180,180,0.4)]">膚無瑕透亮光感</span>
-                </h1>
-
-                <!-- Short Sci-Tech intro text -->
-                <p class="max-w-2xl text-base sm:text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light">
-                    LumiScience 獨家研發「極致光譜因子」，以微分子透皮技術精準鎖定黑色素。結合日本頂尖無菌實驗室配方，喚醒肌膚深層的透光密碼，重現無暇純淨天生美。
+                <!-- Accessibility-optimized subtitle -->
+                <p class="text-lumiprimary font-light text-lg sm:text-2xl tracking-widest mb-6 max-w-xl opacity-0 animate-[fadeIn_1.5s_ease-out_forwards]" style="animation-delay: 0.3s;">
+                    科技守護天生美態
                 </p>
 
-                <!-- High-interaction CTA -->
-                <div class="flex flex-col sm:flex-row items-center gap-4">
-                    <a href="#diagnosis" class="group relative inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-sm tracking-widest text-lumislate-950 bg-white hover:bg-lumipink-100 shadow-[0_8px_30px_rgba(255,255,255,0.2)] hover:shadow-[0_8px_30px_rgba(245,122,123,0.4)] transform hover:-translate-y-1 transition-all duration-300 focus:ring-4 focus:ring-lumipink-400 focus:outline-none" aria-label="開始肌膚問題診斷測驗">
-                        Explore the Science
-                        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                        </svg>
+                <!-- Main Shimmering Headline -->
+                <h1 class="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-wider leading-tight mb-8">
+                    <span class="shimmer-text block filter drop-shadow-[0_2px_15px_rgba(255,255,255,0.25)]" id="hero-main-title">
+                        膚無瑕透亮光感
+                    </span>
+                </h1>
+
+                <!-- Typewriter Dynamic Text Panel for Technology Intro -->
+                <div class="h-10 text-base sm:text-xl font-light text-slate-100 max-w-2xl text-center leading-relaxed tracking-wider mb-10" aria-live="polite">
+                    <span id="typewriter" class="typewriter-cursor"></span>
+                </div>
+
+                <!-- CTA with micro-interactions, custom transition, hovering lifting and glowing shadow -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#diagnostic" class="group relative px-8 py-4 bg-white text-lumiaccent font-bold rounded-full tracking-widest transition-all duration-300 ease-in-out hover:bg-lumiaccent hover:text-white shadow-xl hover:shadow-2xl hover:shadow-lumisecondary/20 flex items-center justify-center space-x-3 text-sm" aria-label="Explore the Science - 開始探索科學護膚科技">
+                        <span>EXPLORE THE SCIENCE</span>
+                        <i class="fa-solid fa-flask text-lumisecondary group-hover:text-white transition-colors duration-300"></i>
                     </a>
-                    <a href="#showcase" class="inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-sm tracking-widest text-white border border-white/30 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 focus:ring-2 focus:ring-white">
-                        瀏覽科研系列
+                    
+                    <a href="#products" class="px-8 py-4 bg-transparent border-2 border-white/60 hover:border-white text-white font-semibold rounded-full tracking-wider transition-all duration-300 text-sm" aria-label="查看全系列產品">
+                        探索日系奢華系列
                     </a>
                 </div>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center">
-                <span class="text-xs text-slate-400 tracking-widest uppercase mb-2" style="letter-spacing: 0.2em;">向下探索</span>
-                <div class="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-1">
-                    <div class="w-1.5 h-3 bg-lumipink-300 rounded-full animate-bounce"></div>
+            <!-- Accessible floating scrolling mouse indicator - Repositioned outside relative box for clean safe space -->
+            <div class="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/50 text-xs tracking-widest gap-2 z-20 pointer-events-none select-none">
+                <span class="uppercase font-semibold tracking-widest text-[10px]">向下探索</span>
+                <div class="w-[20px] h-[35px] border-2 border-white/30 rounded-full flex justify-center p-1">
+                    <div class="w-1.5 h-1.5 bg-white rounded-full animate-bounce"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Module: Skin Diagnostics -->
-        <section id="diagnosis" class="py-24 bg-lumislate-100 relative overflow-hidden" aria-labelledby="diagnosis-title">
-            <!-- Decorative light effect -->
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-lumipink-100/40 to-purple-100/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Interactive Module: "肌膚問題診斷" Interactive Skin Diagnostic Tool -->
+        <section id="diagnostic" class="py-24 bg-gradient-to-b from-[#FFF5FA] to-white relative overflow-hidden" aria-labelledby="diagnostic-title">
+            <!-- Ambient soft background bubbles -->
+            <div class="absolute -top-12 -left-12 w-64 h-64 bg-lumiprimary/20 rounded-full blur-3xl" aria-hidden="true"></div>
+            <div class="absolute bottom-12 right-0 w-80 h-80 bg-lumisecondary/10 rounded-full blur-3xl" aria-hidden="true"></div>
 
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center mb-16">
-                    <h2 id="diagnosis-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-lumislate-900 mb-4">
-                        智能肌膚問題診斷
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold tracking-widest text-lumiaccent uppercase bg-lumiprimary/40 px-3 py-1 rounded-full">Interactive Diagnosis</span>
+                    <h2 id="diagnostic-title" class="text-3xl sm:text-4xl font-extrabold text-lumidark mt-4 mb-6 tracking-wide">
+                        AI 肌膚問題線上診斷
                     </h2>
-                    <p class="text-lg text-slate-600 max-w-xl mx-auto">
-                        為您的天生美態進行 1 分鐘快速科學化評估，AI 將即時分析並推薦最適合您的 LumiScience 專屬方案。
+                    <p class="text-lumigrey leading-relaxed">
+                        只需 1 分鐘回答簡單問題，LumiScience 精密的科技數據庫將為您即時計算並分析您當前的肌膚狀態，精準推薦最適合您天生美態的專屬科研產品。
                     </p>
                 </div>
 
-                <!-- Diagnostics Quiz Container with Glassmorphism -->
-                <div class="glass-panel rounded-3xl shadow-xl border border-white p-6 sm:p-10 transition-all duration-500" id="quiz-container">
+                <!-- Interactive Quiz Container (Card UI with micro-interactions) -->
+                <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-lumiprimary/20 transition-all duration-300" id="quiz-card">
                     
-                    <!-- Progress Bar -->
-                    <div class="mb-8" aria-label="測驗進度">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-lumipink-500 tracking-widest uppercase" id="quiz-step-indicator">步驟 1 之 3</span>
-                            <span class="text-xs font-semibold text-slate-400" id="quiz-progress-percent">33% 已完成</span>
+                    <!-- Progress Bar Component -->
+                    <div class="mb-8" aria-hidden="true">
+                        <div class="flex justify-between items-center text-xs text-lumigrey font-bold mb-2">
+                            <span id="quiz-progress-text">問題 1 / 3</span>
+                            <span id="quiz-progress-percent">33%</span>
                         </div>
-                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                            <div class="bg-lumipink-500 h-full transition-all duration-500 ease-out" id="quiz-progress-bar" style="width: 33.3%;"></div>
-                        </div>
-                    </div>
-
-                    <!-- Question Container -->
-                    <div id="quiz-content" class="min-h-[250px] flex flex-col justify-between">
-                        <!-- Content injected via JS -->
-                        <div>
-                            <h3 class="text-xl sm:text-2xl font-bold text-lumislate-900 mb-6" id="quiz-question">您的主要肌膚困擾是什麼？</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="quiz-options" role="radiogroup">
-                                <!-- Options injected via JS -->
-                            </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div id="quiz-progress-bar" class="bg-gradient-to-r from-lumisecondary to-lumiaccent h-full transition-all duration-500" style="width: 33.33%;"></div>
                         </div>
                     </div>
 
-                    <!-- Result Panel (Hidden by default) -->
-                    <div id="quiz-result" class="hidden flex flex-col md:flex-row items-center gap-8 py-4">
-                        <!-- Left side: Recommended product photo -->
-                        <div class="w-full md:w-2/5 flex flex-col items-center">
-                            <div class="relative w-48 h-48 sm:w-64 sm:h-64 rounded-2xl bg-white shadow-inner flex items-center justify-center p-4">
-                                <img id="rec-product-image" src="Product Demo 4.png" alt="推薦產品" class="max-w-full max-h-full object-contain animate-float">
-                                <div class="absolute top-3 right-3 bg-lumipink-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">配方極力推薦</div>
-                            </div>
+                    <!-- Step Sections -->
+                    <form id="skin-quiz" onsubmit="event.preventDefault();">
+                        
+                        <!-- Question 1 Container -->
+                        <div id="question-block-1" class="space-y-6">
+                            <fieldset>
+                                <legend class="text-lg sm:text-xl font-bold text-lumidark mb-6">
+                                    Q1：目前您肌膚最渴望改善的狀況是？
+                                </legend>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">A</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">暗沉無光、缺乏透亮</span>
+                                        </span>
+                                        <input type="radio" name="q1" value="A" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent" checked>
+                                    </label>
+                                    
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">B</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">乾燥缺水、起屑脫皮</span>
+                                        </span>
+                                        <input type="radio" name="q1" value="B" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">C</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">生活壓力引起的突發敏弱</span>
+                                        </span>
+                                        <input type="radio" name="q1" value="C" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">D</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">日常疲憊、失去原生活力</span>
+                                        </span>
+                                        <input type="radio" name="q1" value="D" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+                                </div>
+                            </fieldset>
                         </div>
-                        <!-- Right side: Analytical description -->
-                        <div class="w-full md:w-3/5">
-                            <div class="inline-block bg-lumipink-50 text-lumipink-600 border border-lumipink-200 text-xs font-bold px-3 py-1 rounded-full mb-3 uppercase tracking-widest">
-                                診斷結果與建議
+
+                        <!-- Question 2 Container (Hidden Initially) -->
+                        <div id="question-block-2" class="hidden space-y-6">
+                            <fieldset>
+                                <legend class="text-lg sm:text-xl font-bold text-lumidark mb-6">
+                                    Q2：在換季或溫差大時，您肌膚的耐受度如何？
+                                </legend>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">A</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">大致穩定，但油脂分泌不均</span>
+                                        </span>
+                                        <input type="radio" name="q2" value="A" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent" checked>
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">B</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">容易泛紅、痕癢，甚至有些微刺痛</span>
+                                        </span>
+                                        <input type="radio" name="q2" value="B" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">C</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">缺水乾燥緊繃，保濕度明顯不足</span>
+                                        </span>
+                                        <input type="radio" name="q2" value="C" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">D</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">常感緊繃疲倦，膚況偶有不穩定</span>
+                                        </span>
+                                        <input type="radio" name="q2" value="D" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <!-- Question 3 Container (Hidden Initially) -->
+                        <div id="question-block-3" class="hidden space-y-6">
+                            <fieldset>
+                                <legend class="text-lg sm:text-xl font-bold text-lumidark mb-6">
+                                    Q3：最期待日常護膚程序帶給您何種核心享受？
+                                </legend>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">A</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">一抹極速保濕滋潤、持久鎖水</span>
+                                        </span>
+                                        <input type="radio" name="q3" value="A" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent" checked>
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">B</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">極緻密集的瞬效精華液深度修复</span>
+                                        </span>
+                                        <input type="radio" name="q3" value="B" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">C</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">全方位的水嫩安撫、高機能修復膜</span>
+                                        </span>
+                                        <input type="radio" name="q3" value="C" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+
+                                    <label class="relative flex items-center justify-between p-4 bg-[#FFF9FC] hover:bg-[#FFF2F8] border-2 border-lumiprimary/30 hover:border-lumisecondary/50 rounded-2xl cursor-pointer transition-all duration-200 group">
+                                        <span class="flex items-center gap-3">
+                                            <span class="w-8 h-8 rounded-full bg-white flex items-center justify-center font-bold text-lumiaccent border border-lumiprimary">D</span>
+                                            <span class="text-lumidark font-semibold text-sm sm:text-base">奢華怡人的感官香氛、紓壓放鬆</span>
+                                        </span>
+                                        <input type="radio" name="q3" value="D" class="w-4 h-4 text-lumiaccent focus:ring-lumiaccent">
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <!-- Quiz Action Controls -->
+                        <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center">
+                            <button type="button" id="quiz-prev-btn" class="hidden px-6 py-3 border border-lumiprimary text-lumiaccent hover:bg-lumiprimary/20 rounded-full font-bold transition-all text-sm">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> 上一步
+                            </button>
+                            <span class="flex-grow"></span> <!-- Spacer -->
+                            <button type="button" id="quiz-next-btn" class="px-8 py-3.5 bg-lumiaccent text-white hover:bg-[#64294f] rounded-full font-bold transition-all shadow-md text-sm">
+                                下一步 <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Real-time Recommendation Result Container (Initially Hidden) -->
+                    <div id="quiz-result-block" class="hidden space-y-8 animate-[fadeIn_0.6s_ease-out]">
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mb-4 animate-bounce">
+                                <i class="fa-solid fa-circle-check text-2xl"></i>
                             </div>
-                            <h4 id="rec-product-name" class="text-2xl font-extrabold text-lumislate-900 mb-2">LumiScience Essence 煥白發光精華</h4>
-                            <p id="rec-product-desc" class="text-slate-600 mb-6 text-sm leading-relaxed">
-                                您的肌膚屏障目前處於缺水失衡狀態，容易加速黑色素沉澱。我們為您定制推薦這款王牌精華液，完美融合玻尿酸與天然珍珠萃取，快速導入基底，由內而外亮澤透光。
+                            <h3 class="text-2xl font-black text-lumidark mb-2">智能診斷完成！</h3>
+                            <p class="text-lumigrey max-w-lg mx-auto text-sm sm:text-base">
+                                根據您的肌膚特性，您的肌膚主要呈現<strong class="text-lumiaccent" id="result-profile-desc">細胞缺水及微暗沉</strong>狀態。LumiScience 推薦以下專屬您的明星保養配方：
                             </p>
-                            <!-- Highlights list -->
-                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                <div class="flex items-center space-x-2 text-xs text-slate-700">
-                                    <i class="fa-solid fa-flask text-lumipink-500"></i>
-                                    <span>日本科研無菌配方</span>
+                        </div>
+
+                        <!-- Recommended Product Display Area -->
+                        <div class="bg-gradient-to-br from-[#FFF8FC] to-white border-2 border-lumiprimary/40 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center gap-8 shadow-inner">
+                            <div class="w-48 h-48 flex-shrink-0 bg-white rounded-2xl p-2 shadow-md relative overflow-hidden group">
+                                <img id="recommend-prod-img" src="Product Demo 4.png" alt="推薦保養品" class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-300" />
+                                <span class="absolute top-2 left-2 text-[10px] font-bold text-white bg-lumiaccent px-2 py-0.5 rounded-full uppercase">Best Choice</span>
+                            </div>
+                            <div class="flex-grow space-y-4">
+                                <div class="space-y-1">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="text-xs font-bold text-lumisecondary tracking-widest uppercase">LumiScience Lab</span>
+                                        <span class="text-xs bg-lumiprimary/60 text-lumiaccent font-bold px-2 py-0.5 rounded">日本製 Made in Japan</span>
+                                    </div>
+                                    <h4 id="recommend-prod-name" class="text-xl sm:text-2xl font-bold text-lumidark">LumiScience 煥光瀅潤晶華液 (Essence)</h4>
                                 </div>
-                                <div class="flex items-center space-x-2 text-xs text-slate-700">
-                                    <i class="fa-solid fa-shield-halved text-lumipink-500"></i>
-                                    <span>修護與提亮雙效</span>
+                                <p id="recommend-prod-text" class="text-lumigrey text-sm sm:text-base leading-relaxed">
+                                    特別適合您的膚況。富含高濃度珍珠萃取、玻尿酸與菸鹼醯胺（維他命B3），直達肌底瞬效補水，打造天生無瑕透亮的光感肌膚。
+                                </p>
+                                <div class="grid grid-cols-2 gap-4 pt-2 text-xs text-lumigrey border-t border-lumiprimary/30">
+                                    <div><strong class="text-lumidark">容量：</strong> <span id="recommend-prod-volume">30ml / 1.01 fl. oz.</span></div>
+                                    <div><strong class="text-lumidark">配方核心：</strong> 零添加、敏感肌適用</div>
+                                </div>
+                                <div class="pt-4 flex flex-wrap gap-3">
+                                    <a href="#products" onclick="setActiveProductTab('essence-tab')" class="px-6 py-3 bg-lumiaccent text-white hover:bg-[#64294f] text-xs font-bold rounded-full tracking-widest uppercase shadow transition-all duration-300">
+                                        查看詳細使用方法
+                                    </a>
+                                    <button type="button" onclick="restartQuiz()" class="px-5 py-3 border border-lumiprimary text-lumiaccent hover:bg-lumiprimary/20 text-xs font-bold rounded-full transition-all">
+                                        重新診斷 <i class="fa-solid fa-arrows-rotate ml-1"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <button onclick="restartQuiz()" class="px-6 py-3 border border-slate-300 rounded-full text-xs font-semibold tracking-widest text-slate-700 hover:bg-slate-50 transition-colors">
-                                    重新評估
-                                </button>
-                                <a id="rec-product-btn" href="#showcase" class="px-6 py-3 bg-lumipink-500 text-white font-bold text-xs tracking-widest uppercase rounded-full shadow-lg hover:bg-lumipink-600 transform hover:-translate-y-0.5 transition-all text-center">
-                                    了解產品詳情
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Product Section: High Fidelity Showcase using Images 2-5 -->
+        <section id="products" class="py-24 bg-white relative" aria-labelledby="products-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold tracking-widest text-lumiaccent uppercase bg-lumiprimary/40 px-3 py-1 rounded-full">The Scientific Lineup</span>
+                    <h2 id="products-title" class="text-3xl sm:text-4xl font-black text-lumidark mt-4 mb-4 tracking-wide">
+                        LumiScience 日系極簡科研系列
+                    </h2>
+                    <p class="text-lumigrey">
+                        嚴格遵循日本最嚴苛的製藥級美容標準，將極簡包裝與極致精確的成分配比融合，解鎖肌膚天生無瑕的奧秘。
+                    </p>
+                </div>
+
+                <!-- Product Tab Controls with ARIA attributes and styling -->
+                <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist" aria-label="產品選擇面板">
+                    <button id="lotion-tab" onclick="switchProductTab('lotion')" class="tab-btn px-6 py-3 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 bg-lumiaccent text-white shadow-md focus:outline-none" role="tab" aria-selected="true" aria-controls="lotion-panel">
+                        Glow Boosting Lotion (乳液)
+                    </button>
+                    <button id="mask-tab" onclick="switchProductTab('mask')" class="tab-btn px-6 py-3 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 bg-slate-50 text-lumigrey hover:bg-lumiprimary/30 focus:outline-none" role="tab" aria-selected="false" aria-controls="mask-panel">
+                        Facial Mask (面膜)
+                    </button>
+                    <button id="perfume-tab" onclick="switchProductTab('perfume')" class="tab-btn px-6 py-3 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 bg-slate-50 text-lumigrey hover:bg-lumiprimary/30 focus:outline-none" role="tab" aria-selected="false" aria-controls="perfume-panel">
+                        Aurora Perfume (高奢香氛)
+                    </button>
+                    <button id="essence-tab" onclick="switchProductTab('essence')" class="tab-btn px-6 py-3 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 bg-slate-50 text-lumigrey hover:bg-lumiprimary/30 focus:outline-none" role="tab" aria-selected="false" aria-controls="essence-panel">
+                        LumiScience Essence (明星精華)
+                    </button>
+                </div>
+
+                <!-- Tab Panels -->
+                <div class="space-y-8">
+                    
+                    <!-- Panel 1: Lotion -->
+                    <div id="lotion-panel" class="product-panel grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" role="tabpanel" aria-labelledby="lotion-tab">
+                        <!-- Left Image Side with subtle hover shadow glow -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-sm bg-gradient-to-br from-[#FFF5FA] to-slate-50 rounded-3xl p-8 shadow-xl border border-lumiprimary/20 hover-lift">
+                                <img src="Product Demo 1.png" alt="LumiScience Glow Boosting Lotion" class="w-full h-auto object-contain mx-auto mix-blend-multiply" />
+                                <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-lumiprimary/30 text-xs text-lumiaccent font-bold">
+                                    <i class="fa-solid fa-earth-asia mr-1"></i> 日本製造 Made in Japan
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right Details Side -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div>
+                                <span class="text-xs font-bold text-lumisecondary uppercase tracking-widest">Hydrating & Brightening</span>
+                                <h3 class="text-2xl sm:text-3xl font-extrabold text-lumidark mt-1">Glow Boosting Lotion (煥光瀅潤乳液)</h3>
+                            </div>
+                            <p class="text-lumigrey leading-relaxed">
+                                專為暗沉缺水、肌底代謝減緩的肌膚設計。羽毛般的輕盈乳液質地，一抹釋放高濃度保濕因子，並在肌膚表面形成透氣的仿生鎖水膜。
+                            </p>
+                            
+                            <!-- Tabbed detailed segments for information -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-lumisecondary"></i> 使用方法 (Directions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        每日早晚於化妝水或精華液後，取一至二泵均勻塗抹於面部及頸部，由內而外輕柔按摩至完全吸收。
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> 注意事項 (Precautions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        僅供外用。若皮膚有傷口、紅腫等異常狀況請勿使用。使用後若有任何不適請立即停用。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap gap-4 items-center justify-between border-t border-slate-100">
+                                <div class="flex gap-6 text-sm">
+                                    <div><span class="text-lumigrey">容量 (Volume)：</span> <strong class="text-lumidark">30ml / 1.01 fl. oz.</strong></div>
+                                    <div><span class="text-lumigrey">核心成分：</span> <strong class="text-lumidark">玻尿酸、珍珠精華</strong></div>
+                                </div>
+                                <a href="#diagnostic" class="px-6 py-3 bg-lumiaccent text-white hover:bg-[#64294f] rounded-full text-xs font-bold tracking-widest transition-all">
+                                    立即開始診斷合適度
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Facial Mask (Hidden) -->
+                    <div id="mask-panel" class="product-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" role="tabpanel" aria-labelledby="mask-tab">
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-sm bg-gradient-to-br from-[#FFF5FA] to-slate-50 rounded-3xl p-8 shadow-xl border border-lumiprimary/20 hover-lift">
+                                <img src="Product Demo 2.png" alt="LumiScience Aurora Research Series: Facial Mask" class="w-full h-auto object-contain mx-auto mix-blend-multiply" />
+                                <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-lumiprimary/30 text-xs text-lumiaccent font-bold">
+                                    <i class="fa-solid fa-earth-asia mr-1"></i> 日本製造 Made in Japan
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-7 space-y-6">
+                            <div>
+                                <span class="text-xs font-bold text-lumisecondary uppercase tracking-widest">Intensive Restoration</span>
+                                <h3 class="text-2xl sm:text-3xl font-extrabold text-lumidark mt-1">Aurora Research Series: Facial Mask (極光科研面膜)</h3>
+                            </div>
+                            <p class="text-lumigrey leading-relaxed">
+                                專為急救疲憊肌及壓力肌設計。密集式精華液導入系統，每片富含 30ml 玻尿酸、頂級水解珍珠蛋白及多重草本修護因子。3D服貼剪裁，深層修護並重塑健康屏障。
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-lumisecondary"></i> 使用方法 (Directions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        潔面後敷上面膜。輕壓使其完全貼合面部，靜待 15-20 分鐘後取下，將臉上剩餘精華輕輕按摩至吸收，無需清洗。
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> 注意事項 (Precautions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        單次性使用面膜。請置於陰涼乾燥處，避免陽光直射及孩童接觸。敏感肌請於耳後測試後使用。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap gap-4 items-center justify-between border-t border-slate-100">
+                                <div class="flex gap-6 text-sm">
+                                    <div><span class="text-lumigrey">容量 (Volume)：</span> <strong class="text-lumidark">30ml e / 1.01 fl. oz. (每片)</strong></div>
+                                    <div><span class="text-lumigrey">核心成分：</span> <strong class="text-lumidark">玻尿酸、珍珠精萃</strong></div>
+                                </div>
+                                <a href="#diagnostic" class="px-6 py-3 bg-lumiaccent text-white hover:bg-[#64294f] rounded-full text-xs font-bold tracking-widest transition-all">
+                                    立即開始診斷合適度
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Perfume (Hidden) -->
+                    <div id="perfume-panel" class="product-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" role="tabpanel" aria-labelledby="perfume-tab">
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-sm bg-gradient-to-br from-[#FFF5FA] to-slate-50 rounded-3xl p-8 shadow-xl border border-lumiprimary/20 hover-lift">
+                                <img src="Product Demo 3.png" alt="LumiScience Perfume" class="w-full h-auto object-contain mx-auto mix-blend-multiply" />
+                                <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-lumiprimary/30 text-xs text-lumiaccent font-bold">
+                                    <i class="fa-solid fa-earth-asia mr-1"></i> 日本製造 Made in Japan
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-7 space-y-6">
+                            <div>
+                                <span class="text-xs font-bold text-lumisecondary uppercase tracking-widest">Scent & Aura</span>
+                                <h3 class="text-2xl sm:text-3xl font-extrabold text-lumidark mt-1">Aurora Perfume (晨光極境奢華淡香精)</h3>
+                            </div>
+                            <p class="text-lumigrey leading-relaxed">
+                                專為調和身心靈氣場而設計。晨光微露時分的純淨香調，融合微亮露水的青澀植物氣息與精緻木質暖香，激發感官活力，釋放專屬優雅氣質。
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-lumisecondary"></i> 使用方法 (Directions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        噴灑於耳後、手腕內側、膝蓋後方等脈搏跳動處。亦可噴灑於空氣中，穿過香霧，享受全方位的療癒包圍。
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> 注意事項 (Precautions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        易燃液體，請遠離明火、高溫、熱源及避免陽光直射。請勿直接噴灑於眼部、敏感或受損皮膚。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap gap-4 items-center justify-between border-t border-slate-100">
+                                <div class="flex gap-6 text-sm">
+                                    <div><span class="text-lumigrey">容量 (Volume)：</span> <strong class="text-lumidark">50ml e / 1.7 fl. oz.</strong></div>
+                                    <div><span class="text-lumigrey">香氛基調：</span> <strong class="text-lumidark">天然香精油、精製溫和乙醇</strong></div>
+                                </div>
+                                <a href="#diagnostic" class="px-6 py-3 bg-lumiaccent text-white hover:bg-[#64294f] rounded-full text-xs font-bold tracking-widest transition-all">
+                                    立即開始診斷合適度
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 4: Essence (Hidden) -->
+                    <div id="essence-panel" class="product-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" role="tabpanel" aria-labelledby="essence-tab">
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-sm bg-gradient-to-br from-[#FFF5FA] to-slate-50 rounded-3xl p-8 shadow-xl border border-lumiprimary/20 hover-lift">
+                                <img src="Product Demo 4.png" alt="LumiScience Essence" class="w-full h-auto object-contain mx-auto mix-blend-multiply" />
+                                <div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-lumiprimary/30 text-xs text-lumiaccent font-bold">
+                                    <i class="fa-solid fa-earth-asia mr-1"></i> 日本製造 Made in Japan
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-7 space-y-6">
+                            <div>
+                                <span class="text-xs font-bold text-lumisecondary uppercase tracking-widest">Active Skin Repair</span>
+                                <h3 class="text-2xl sm:text-3xl font-extrabold text-lumidark mt-1">LumiScience Essence (極光透亮活化精華液)</h3>
+                            </div>
+                            <p class="text-lumigrey leading-relaxed">
+                                品牌的靈魂核心，極致精準高濃度修護配方。高純度玻尿酸（Hyaluronic Acid）、珍珠母貝提取物（Pearl Extract）及菸鹼醯胺（Niacinamide）完美黃金配比，從根源淡化黯沉，煥活膠原。
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-lumisecondary"></i> 使用方法 (Directions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        每日早晚潔面及使用爽膚水後，取數滴精華液均勻塗抹於全面，輕輕拍打並按壓直至完全吸收。
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lumidark flex items-center gap-2 mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> 注意事項 (Precautions)
+                                    </h4>
+                                    <p class="text-lumigrey text-sm leading-relaxed">
+                                        如本產品不慎入眼，請立即以清水徹底沖洗。室溫保存並置於幼兒接觸不到之處。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap gap-4 items-center justify-between border-t border-slate-100">
+                                <div class="flex gap-6 text-sm">
+                                    <div><span class="text-lumigrey">容量 (Volume)：</span> <strong class="text-lumidark">30ml e / 1.01 fl. oz.</strong></div>
+                                    <div><span class="text-lumigrey">核心成分：</span> <strong class="text-lumidark">玻尿酸、珍珠精華、菸鹼醯胺</strong></div>
+                                </div>
+                                <a href="#diagnostic" class="px-6 py-3 bg-lumiaccent text-white hover:bg-[#64294f] rounded-full text-xs font-bold tracking-widest transition-all">
+                                    立即開始診斷合適度
                                 </a>
                             </div>
                         </div>
                     </div>
 
                 </div>
+
             </div>
         </section>
 
-        <!-- Product Showcase Section -->
-        <section id="showcase" class="py-24 bg-white" aria-labelledby="showcase-title">
+
+        <!-- User Reviews Section: Responsive social media reviews with exactly ~40 words and emojis -->
+        <section id="testimonials" class="py-24 bg-gradient-to-t from-[#FFF5FA] to-white relative" aria-labelledby="testimonials-title">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <span class="text-xs font-bold text-lumipink-500 uppercase tracking-widest" style="letter-spacing: 0.25em;">精準極簡科技護膚</span>
-                    <h2 id="showcase-title" class="text-3xl sm:text-4xl font-extrabold text-lumislate-900 mt-2">
-                        LumiScience 四大皇牌配方
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-xs font-bold tracking-widest text-lumiaccent uppercase bg-lumiprimary/40 px-3 py-1 rounded-full">Community & Love</span>
+                    <h2 id="testimonials-title" class="text-3xl sm:text-4xl font-black text-lumidark mt-4 mb-4 tracking-wide">
+                        來自社交媒體的真實聲量
                     </h2>
-                    <p class="mt-4 text-lg text-slate-500 max-w-xl mx-auto">
-                        我們精研出四大針對性單品，融合醫學級活性成分，帶給您最高效純粹的奢華保養。
+                    <p class="text-lumigrey text-sm sm:text-base">
+                        聽聽全球數以千計 LumiScience 愛用者在 Instagram, Threads 及 Youtube 上的真實反饋分享。
                     </p>
                 </div>
 
-                <!-- Interactive Tab-driven Layout -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                    
-                    <!-- Left Column: Product Interactive List / Quick Navigation -->
-                    <div class="lg:col-span-4 space-y-4">
-                        <button onclick="selectProduct(0)" id="prod-tab-0" class="prod-tab-btn w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between border-lumipink-300 bg-lumipink-50/50 shadow-sm" aria-expanded="true">
-                            <div>
-                                <span class="text-[10px] font-bold text-lumipink-500 uppercase tracking-widest">STEP 01</span>
-                                <h3 class="text-lg font-bold text-lumislate-900 mt-1">Glow Boosting Lotion</h3>
-                                <p class="text-xs text-slate-500 mt-1">煥活光感保濕乳液</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-lumipink-500 transform translate-x-1"></i>
-                        </button>
-
-                        <button onclick="selectProduct(1)" id="prod-tab-1" class="prod-tab-btn w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between border-slate-200 bg-white hover:bg-slate-50" aria-expanded="false">
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">STEP 02</span>
-                                <h3 class="text-lg font-bold text-lumislate-900 mt-1">Aurora Research Series Mask</h3>
-                                <p class="text-xs text-slate-500 mt-1">極光密集修護面膜</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
-                        </button>
-
-                        <button onclick="selectProduct(2)" id="prod-tab-2" class="prod-tab-btn w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between border-slate-200 bg-white hover:bg-slate-50" aria-expanded="false">
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">STEP 03</span>
-                                <h3 class="text-lg font-bold text-lumislate-900 mt-1">LumiScience Essence</h3>
-                                <p class="text-xs text-slate-500 mt-1">王牌煥白發光精華</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
-                        </button>
-
-                        <button onclick="selectProduct(3)" id="prod-tab-3" class="prod-tab-btn w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between border-slate-200 bg-white hover:bg-slate-50" aria-expanded="false">
-                            <div>
-                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">STEP 04</span>
-                                <h3 class="text-lg font-bold text-lumislate-900 mt-1">LumiScience Perfume</h3>
-                                <p class="text-xs text-slate-500 mt-1">光采氛圍極致香氛</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
-                        </button>
-                    </div>
-
-                    <!-- Right Column: Interactive Details Panel -->
-                    <div class="lg:col-span-8 bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-100 shadow-md min-h-[500px]" id="product-detail-panel">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            
-                            <!-- Product Image Display -->
-                            <div class="flex justify-center">
-                                <div class="relative w-72 h-72 sm:w-80 sm:h-80 bg-white rounded-2xl shadow-sm flex items-center justify-center p-6 transition-all duration-500 transform hover:scale-105">
-                                    <img id="detail-img" src="Product Demo 1.png" alt="LumiScience Glow Boosting Lotion" class="max-w-full max-h-full object-contain">
-                                    <!-- Origin Badge -->
-                                    <span class="absolute top-4 left-4 bg-lumislate-900 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-widest">Made in Japan</span>
-                                </div>
-                            </div>
-
-                            <!-- Product Specifications -->
-                            <div>
-                                <div class="inline-flex items-center space-x-2 bg-lumipink-100 text-lumipink-700 text-xs font-bold px-3 py-1 rounded-full mb-4">
-                                    <i class="fa-solid fa-flask"></i>
-                                    <span id="detail-category">Glow Boosting Lotion</span>
-                                </div>
-                                <h3 id="detail-title" class="text-2xl sm:text-3xl font-bold text-lumislate-900 mb-2">煥活光感保濕乳液</h3>
-                                <p id="detail-volume" class="text-sm text-slate-400 font-semibold mb-6">容量：30ml e / 1.01 fl. oz.</p>
-                                
-                                <div class="space-y-4 mb-6">
-                                    <div>
-                                        <h4 class="text-xs font-bold text-slate-500 tracking-wider uppercase mb-1">主要成分</h4>
-                                        <p id="detail-ingredients" class="text-sm text-slate-700">玻尿酸、珍珠萃取物、煙酰胺（維他命B3）及多重光合肽化合物。</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-xs font-bold text-slate-500 tracking-wider uppercase mb-1">使用方法</h4>
-                                        <p id="detail-usage" class="text-sm text-slate-700">早晚於爽膚水或精華液後使用。取珍珠大小的量，均勻塗抹於面部及頸部，輕柔按摩至完全吸收。</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-xs font-bold text-slate-500 tracking-wider uppercase mb-1">注意事項</h4>
-                                        <p id="detail-precautions" class="text-xs text-lumipink-600 font-medium">請避免直接接觸眼睛。如不慎入眼，請立即以大量清水沖洗。使用後若有任何不適，請立即停止使用並諮詢專業皮膚科醫生。</p>
-                                    </div>
-                                </div>
-
-                                <!-- Accessibility-friendly interactive Button -->
-                                <button class="w-full bg-lumislate-900 hover:bg-lumipink-600 text-white font-bold text-xs tracking-widest uppercase py-4 rounded-xl shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-lumipink-300 transform active:scale-95" onclick="copyBuyLink(this)">
-                                    <span class="mr-1">複製產品購買資訊</span>
-                                    <i class="fa-solid fa-copy"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- User Reviews / Testimonials Grid -->
-        <section id="reviews" class="py-24 bg-lumislate-50 relative overflow-hidden" aria-labelledby="reviews-title">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <span class="text-xs font-bold text-lumipink-500 uppercase tracking-widest" style="letter-spacing: 0.25em;">用家極力推薦</span>
-                    <h2 id="reviews-title" class="text-3xl sm:text-4xl font-extrabold text-lumislate-900 mt-2">
-                        社群口碑真實見證
-                    </h2>
-                    <p class="mt-4 text-lg text-slate-500 max-w-xl mx-auto">
-                        探索社群媒體上最真實的用家回饋，親身體會他們遇見極緻透亮光感的奇蹟之旅。
-                    </p>
-                </div>
-
-                <!-- 40-Word Reviews with Emoji Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
-                    <!-- Card 1 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center space-x-1 text-amber-400 mb-4">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                    <!-- Review 1 -->
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-lumiprimary/30 shadow-lg hover-lift flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-lumiprimary flex items-center justify-center font-bold text-lumiaccent text-sm">C</div>
+                                    <div>
+                                        <h4 class="font-bold text-lumidark text-sm">@Chloe_lumi</h4>
+                                        <p class="text-xs text-lumigrey">IG 護膚博主</p>
+                                    </div>
+                                </div>
+                                <span class="text-lumisecondary text-sm"><i class="fa-brands fa-instagram text-xl"></i></span>
                             </div>
-                            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
-                                "用完LumiScience精華感覺肌膚瞬間補水透亮✨，原本暗沉的斑點也淡化了許多，天生美態亮起來💖！"
+                            <!-- Exactly ~40 words of rich content + Emojis -->
+                            <p class="text-lumigrey text-sm leading-relaxed">
+                                ✨這款明星精華真的好神奇！用了短短一週，肌膚暗沉竟然一掃而空，瞬間補水、極緻透亮💖。完全是我的急救救星，敏感肌也完全不刺激，大愛它的極簡天然清香！
                             </p>
                         </div>
-                        <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
-                            <span class="w-10 h-10 rounded-full bg-lumipink-100 flex items-center justify-center text-lumipink-500 font-bold text-sm">H</span>
-                            <div>
-                                <h4 class="text-sm font-bold text-lumislate-900">@helen_makeup</h4>
-                                <p class="text-xs text-slate-400">Instagram 認證用家</p>
-                            </div>
+                        <div class="mt-6 pt-4 border-t border-slate-50 flex items-center gap-1 text-lumisecondary text-xs">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-lumigrey ml-2">已驗證用家</span>
                         </div>
                     </div>
 
-                    <!-- Card 2 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center space-x-1 text-amber-400 mb-4">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                    <!-- Review 2 -->
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-lumiprimary/30 shadow-lg hover-lift flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-lumiprimary flex items-center justify-center font-bold text-lumiaccent text-sm">M</div>
+                                    <div>
+                                        <h4 class="font-bold text-lumidark text-sm">@Max_science</h4>
+                                        <p class="text-xs text-lumigrey">Threads 精英</p>
+                                    </div>
+                                </div>
+                                <span class="text-lumisecondary text-sm"><i class="fa-brands fa-threads text-xl text-black"></i></span>
                             </div>
-                            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
-                                "超強的極光面膜簡直是急救神器🧪！敷完隔天起床，皮膚透亮出水光感，無懼素顏拍照📸，超級推推薦！"
+                            <!-- Exactly ~40 words of rich content + Emojis -->
+                            <p class="text-lumigrey text-sm leading-relaxed">
+                                🌱作為成分控，這是我用過日本研發最安心的面膜！玻尿酸與高純度珍珠精華深度契合，補水修復超有感。包裝極簡，加上永續永續環保理念，真的值得無限回購！💯
                             </p>
                         </div>
-                        <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
-                            <span class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 font-bold text-sm">R</span>
-                            <div>
-                                <h4 class="text-sm font-bold text-lumislate-900">@ryan_beauty_sci</h4>
-                                <p class="text-xs text-slate-400">Threads 認證用家</p>
-                            </div>
+                        <div class="mt-6 pt-4 border-t border-slate-50 flex items-center gap-1 text-lumisecondary text-xs">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-lumigrey ml-2">已驗證用家</span>
                         </div>
                     </div>
 
-                    <!-- Card 3 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center space-x-1 text-amber-400 mb-4">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                    <!-- Review 3 -->
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-lumiprimary/30 shadow-lg hover-lift flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-lumiprimary flex items-center justify-center font-bold text-lumiaccent text-sm">Y</div>
+                                    <div>
+                                        <h4 class="font-bold text-lumidark text-sm">@Yumi_Vlog</h4>
+                                        <p class="text-xs text-lumigrey">美妝 YouTuber</p>
+                                    </div>
+                                </div>
+                                <span class="text-lumisecondary text-sm"><i class="fa-brands fa-youtube text-xl text-red-600"></i></span>
                             </div>
-                            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
-                                "這支乳液輕盈不黏膩，非常適合夏天使用💦！科技美白成分溫和有效，讓肌膚整天透亮不泛油光🌟！"
+                            <!-- Exactly ~40 words of rich content + Emojis -->
+                            <p class="text-lumigrey text-sm leading-relaxed">
+                                🌸好愛乳液的水透質地！晨間噴上淡香精，再塗乳液，全天帶給肌膚輕盈無負擔的極光亮感。每次在影片中推薦，都有粉絲回報說皮膚乾澀暗沉明顯改善了，無限支持！
                             </p>
                         </div>
-                        <div class="flex items-center space-x-3 pt-4 border-t border-slate-100">
-                            <span class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500 font-bold text-sm">K</span>
-                            <div>
-                                <h4 class="text-sm font-bold text-lumislate-900">@katie_skincare</h4>
-                                <p class="text-xs text-slate-400">YouTube 認證用家</p>
-                            </div>
+                        <div class="mt-6 pt-4 border-t border-slate-50 flex items-center gap-1 text-lumisecondary text-xs">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-lumigrey ml-2">已驗證用家</span>
                         </div>
                     </div>
 
                 </div>
+
+                <!-- Trusted Badge Section -->
+                <div class="mt-16 pt-10 border-t border-lumiprimary/20 flex flex-wrap justify-center items-center gap-8 md:gap-16 text-center text-xs text-lumigrey font-semibold tracking-wider">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-award text-lumiaccent text-lg"></i>
+                        <span>日本厚生省醫藥級標準認證</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-lumiaccent text-lg"></i>
+                        <span>通過 SGS 100% 低敏安全測試</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-leaf text-lumiaccent text-lg"></i>
+                        <span>全植物素食，反對動物實驗</span>
+                    </div>
+                </div>
+
             </div>
         </section>
+
 
         <!-- Latest Promotion Section -->
-        <section id="promo" class="py-24 bg-lumislate-950 text-white relative overflow-hidden" aria-labelledby="promo-title">
-            <!-- Fullscreen Decorative Graphic -->
-            <div class="absolute inset-0 z-0 opacity-40">
-                <img src="Demo-leaflet-final-v1.png" alt="LumiScience 高級產品海報與幾何結構" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-r from-lumislate-950 via-lumislate-950/80 to-transparent"></div>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-6">
-                    <span class="text-xs font-bold text-lumipink-300 uppercase tracking-widest" style="letter-spacing: 0.3em;">年度科研震撼企劃</span>
-                    <h2 id="promo-title" class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3 mb-6 leading-tight">
-                        開啟您的天生<br>
-                        <span class="shimmer-text">無瑕透亮之旅</span>
-                    </h2>
-                    <p class="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed font-light">
-                        現在購買 LumiScience 煥白科研保養全系列，即享限量極限精裝組禮遇，隨單附贈極致光采保養儀，親自見證源於日本頂尖實驗室的科技力量。
-                    </p>
+        <section id="promotion" class="py-24 bg-white relative" aria-labelledby="promo-title">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="bg-gradient-to-br from-slate-900 via-lumiaccent to-slate-900 rounded-[3rem] overflow-hidden text-white shadow-2xl relative">
                     
-                    <div class="flex items-center space-x-6 mb-8">
-                        <div class="text-center">
-                            <span class="block text-4xl font-extrabold text-lumipink-300">89%</span>
-                            <span class="text-xs text-slate-400 mt-1 block">用家見證淡斑</span>
-                        </div>
-                        <div class="w-px h-10 bg-white/20"></div>
-                        <div class="text-center">
-                            <span class="block text-4xl font-extrabold text-lumipink-300">95%</span>
-                            <span class="text-xs text-slate-400 mt-1 block">極光保濕度提升</span>
-                        </div>
-                    </div>
+                    <!-- Ambient glows background -->
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-lumisecondary/20 rounded-full blur-3xl" aria-hidden="true"></div>
+                    <div class="absolute bottom-0 left-0 w-96 h-96 bg-lumiprimary/10 rounded-full blur-3xl" aria-hidden="true"></div>
 
-                    <a href="#diagnosis" class="inline-flex items-center justify-center px-8 py-4 bg-lumipink-500 hover:bg-lumipink-600 text-white font-bold text-sm tracking-widest uppercase rounded-full shadow-lg transform hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-4 focus:ring-lumipink-400">
-                        立即預約科技診斷
-                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                    </a>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center p-8 sm:p-16 relative z-10">
+                        
+                        <!-- Left Content Area -->
+                        <div class="lg:col-span-7 space-y-8">
+                            <div class="space-y-4">
+                                <span class="text-xs font-bold tracking-widest text-lumiprimary uppercase bg-white/10 px-3 py-1.5 rounded-full inline-block">
+                                    Seasonal Campaign • 限時科技探索禮遇
+                                </span>
+                                <h2 id="promo-title" class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                                    擁抱「膚無瑕透亮光感」<br>
+                                    <span class="text-lumiprimary">解鎖盛夏科技極光之旅</span>
+                                </h2>
+                                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+                                    即日起凡首次完成我們的肌膚問題智慧診斷測試，即可獲得專屬的限時優惠折扣代碼。凡購買極致系列，均享日本空運直送，並獲贈限量極光手提環保收納包，體驗極簡美學。
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-6 max-w-md">
+                                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                    <span class="text-2xl font-black text-lumisecondary block">Free Shipping</span>
+                                    <span class="text-xs text-slate-400">日本直送，買滿 $500 即享免運費</span>
+                                </div>
+                                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                    <span class="text-2xl font-black text-lumisecondary block">Eco Packaging</span>
+                                    <span class="text-xs text-slate-400">全系列包裝採用生物可降解原料</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap gap-4 items-center">
+                                <a href="#diagnostic" class="px-8 py-4 bg-white text-lumiaccent hover:bg-lumiprimary font-black rounded-full text-xs sm:text-sm tracking-widest uppercase shadow-xl transition-all duration-300">
+                                    立即開始診斷 & 獲取優惠碼
+                                </a>
+                                <a href="Demo-leaflet-final-v1.png" target="_blank" class="px-6 py-4 bg-white/10 border border-white/20 text-white hover:bg-white/20 font-bold rounded-full text-xs sm:text-sm tracking-widest transition-all">
+                                    查看高清企劃海報 <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Right Image Display Area (Upload Image 6: Demo-leaflet-final-v1.png) -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-sm bg-white/5 rounded-3xl p-4 border border-white/10 shadow-2xl overflow-hidden group">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 pointer-events-none"></div>
+                                <img src="Demo-leaflet-final-v1.png" alt="LumiScience 最新企劃海報與產品形象全集" class="w-full h-auto object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-500" />
+                                <span class="absolute top-6 right-6 z-20 text-[10px] font-black bg-lumisecondary text-white px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">
+                                    Promo Image
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="lg:col-span-6 flex justify-center">
-                    <div class="relative w-full max-w-md p-2 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md transform hover:rotate-1 hover:scale-105 transition-all duration-500">
-                        <img src="Demo-leaflet-final-v1.png" alt="LumiScience 高級奢華全系列科研海報" class="w-full h-auto rounded-2xl">
-                    </div>
+            </div>
+        </section>
+
+
+        <!-- Contact & Community Section -->
+        <section class="bg-slate-50 py-20 border-t border-b border-lumiprimary/20" aria-label="聯絡我們與社交媒體社群">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
+                <div class="max-w-xl mx-auto space-y-4">
+                    <span class="text-xs font-bold text-lumiaccent tracking-widest uppercase">Stay Connected</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-lumidark">加入 LumiScience 頂級科研社群</h2>
+                    <p class="text-lumigrey text-sm sm:text-base">
+                        關注我們的社交媒體平台，第一時間獲取來自東京護膚實驗室的最前沿科學發現、環保進展及限時尊享禮遇。
+                    </p>
+                </div>
+
+                <!-- Handled Contact & Social Links explicitly -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    
+                    <!-- Instagram Link -->
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-gradient-to-r hover:from-[#fdf4f7] hover:to-[#fff9fb] p-6 rounded-2xl border border-lumiprimary/30 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col items-center gap-4" aria-label="前往 LumiScience 官方 Instagram">
+                        <div class="w-12 h-12 rounded-full bg-[#fdf2f6] text-[#e1306c] flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <div class="text-center">
+                            <span class="block font-black text-lumidark text-base">@LumiScience</span>
+                            <span class="text-xs text-lumigrey">Instagram 核心社群</span>
+                        </div>
+                    </a>
+
+                    <!-- Threads Link -->
+                    <a href="https://threads.net" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-gradient-to-r hover:from-[#fdf4f7] hover:to-[#fff9fb] p-6 rounded-2xl border border-lumiprimary/30 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col items-center gap-4" aria-label="前往 LumiScience 官方 Threads">
+                        <div class="w-12 h-12 rounded-full bg-[#f3f4f6] text-[#000000] flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-brands fa-threads"></i>
+                        </div>
+                        <div class="text-center">
+                            <span class="block font-black text-lumidark text-base">@LumiScience</span>
+                            <span class="text-xs text-lumigrey">Threads 即時對話</span>
+                        </div>
+                    </a>
+
+                    <!-- YouTube Link -->
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-gradient-to-r hover:from-[#fdf4f7] hover:to-[#fff9fb] p-6 rounded-2xl border border-lumiprimary/30 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col items-center gap-4" aria-label="前往 LumiScience 官方 YouTube">
+                        <div class="w-12 h-12 rounded-full bg-[#fef2f2] text-[#ff0000] flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <div class="text-center">
+                            <span class="block font-black text-lumidark text-base">@LumiScience</span>
+                            <span class="text-xs text-lumigrey">科學護膚大師課</span>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </section>
 
-        <!-- Social Contact Section -->
-        <section id="contact" class="py-20 bg-white border-t border-slate-100" aria-labelledby="contact-title">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest" style="letter-spacing: 0.25em;">連繫 LumiScience</span>
-                <h2 id="contact-title" class="text-3xl font-extrabold text-lumislate-900 mt-2 mb-4">加入全球科技美學社群</h2>
-                <p class="text-slate-500 max-w-md mx-auto mb-10 text-sm">
-                    追蹤我們的社群平台，獲取第一手日本科研肌膚趨勢報告、獨家優惠與專家護膚教學。
-                </p>
-
-                <!-- Responsive high-contrast social buttons grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-                    <!-- Instagram -->
-                    <a href="https://instagram.com/LumiScience" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center space-x-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-lumipink-50 hover:border-lumipink-200 transition-all duration-300 group focus:ring-2 focus:ring-lumipink-400">
-                        <i class="fa-brands fa-instagram text-2xl text-slate-600 group-hover:text-lumipink-500 transition-colors"></i>
-                        <span class="font-semibold text-sm text-slate-800 group-hover:text-lumipink-900">@LumiScience</span>
-                    </a>
-
-                    <!-- Threads -->
-                    <a href="https://threads.net/@LumiScience" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center space-x-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-slate-100 hover:border-slate-300 transition-all duration-300 group focus:ring-2 focus:ring-slate-800">
-                        <i class="fa-brands fa-threads text-2xl text-slate-600 group-hover:text-slate-900 transition-colors"></i>
-                        <span class="font-semibold text-sm text-slate-800 group-hover:text-slate-950">@LumiScience</span>
-                    </a>
-
-                    <!-- YouTube -->
-                    <a href="https://youtube.com/@LumiScience" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center space-x-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-red-50 hover:border-red-200 transition-all duration-300 group focus:ring-2 focus:ring-red-500">
-                        <i class="fa-brands fa-youtube text-2xl text-slate-600 group-hover:text-red-600 transition-colors"></i>
-                        <span class="font-semibold text-sm text-slate-800 group-hover:text-red-950">@LumiScience</span>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Minimalist & Sustainability Focused Footer -->
-    <footer class="bg-lumislate-950 text-slate-400 pt-16 pb-8 border-t border-white/5" aria-label="頁尾資訊">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
-            
-            <!-- Left Branding & Sustainability philosophy -->
-            <div class="md:col-span-5">
-                <span class="font-handwritten text-4xl text-white tracking-wide block mb-4">LumiScience</span>
-                <p class="text-sm leading-relaxed mb-6 max-w-sm">
-                    LumiScience 致力於將極簡科研美學與<strong>綠色永續發展（Sustainability）</strong>完美融合。我們堅持採用海洋友善配方、綠色低碳製程與 100% 可回收環保瓶身，用純粹的純素力量守護您的天生美態，同時與地球共生共榮。
-                </p>
-                <!-- Sustainability badge -->
-                <div class="inline-flex items-center space-x-2 bg-emerald-950/40 text-emerald-300 px-3 py-1.5 rounded-lg border border-emerald-800/50 text-xs">
-                    <i class="fa-solid fa-leaf text-emerald-400"></i>
-                    <span>100% 永續低碳包裝與綠色護膚承諾</span>
+    <!-- Footer: Minimalist Navigation, emphasizing Sustainability and Scientific Background -->
+    <footer class="bg-slate-900 text-white pt-16 pb-12" aria-labelledby="footer-heading">
+        <h2 id="footer-heading" class="sr-only">LumiScience 頁尾資訊</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+                
+                <!-- Column 1: Brand Info -->
+                <div class="space-y-4">
+                    <span class="brand-handwritten text-4xl font-bold text-white block">LumiScience</span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        源於東京，融合前沿生物技術，致力研發最純淨、最高效的細胞美容處方。我們堅信，美麗應由科技引領，更需由永續守護。
+                    </p>
+                    <div class="text-[10px] text-lumisecondary font-bold tracking-widest">
+                        日本製 | TOKYO • JAPAN
+                    </div>
                 </div>
-            </div>
 
-            <!-- Middle Navigation Links -->
-            <div class="md:col-span-4 grid grid-cols-2 gap-8">
-                <div>
-                    <h4 class="text-xs font-bold text-white tracking-widest uppercase mb-4">核心科研</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#showcase" class="hover:text-white transition-colors">獨家極光因子</a></li>
-                        <li><a href="#showcase" class="hover:text-white transition-colors">日本配方實驗室</a></li>
-                        <li><a href="#promo" class="hover:text-white transition-colors">臨床檢驗功效</a></li>
-                        <li><a href="#products" class="hover:text-white transition-colors">永續綠色萃取</a></li>
+                <!-- Column 2: Science & Lab Background -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold tracking-widest text-lumiprimary uppercase">科技研發背景</h3>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#hero" class="hover:text-white transition-colors">細胞核糖體重啟技術</a></li>
+                        <li><a href="#hero" class="hover:text-white transition-colors">高透性微脂囊傳導系統</a></li>
+                        <li><a href="#products" class="hover:text-white transition-colors">珍珠蛋白水解純化專利</a></li>
+                        <li><a href="#products" class="hover:text-white transition-colors">敏感肌安心實驗數據</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="text-xs font-bold text-white tracking-widest uppercase mb-4">客戶支援</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#diagnosis" class="hover:text-white transition-colors">智能肌膚諮詢</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">產品使用Q&A</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">全球配送服務</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">隱私與使用條款</a></li>
+
+                <!-- Column 3: Sustainability Commitments (永續精神) -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold tracking-widest text-lumiprimary uppercase">永續承諾 (Sustainability)</h3>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li class="flex items-center gap-1.5">
+                            <span class="text-emerald-400 text-[10px]">●</span>
+                            <span>100% PCR 可回收循環包裝材質</span>
+                        </li>
+                        <li class="flex items-center gap-1.5">
+                            <span class="text-emerald-400 text-[10px]">●</span>
+                            <span>純素成分配方，無動物來源原料</span>
+                        </li>
+                        <li class="flex items-center gap-1.5">
+                            <span class="text-emerald-400 text-[10px]">●</span>
+                            <span>支持全球雨林再生綠色公益計畫</span>
+                        </li>
+                        <li class="flex items-center gap-1.5">
+                            <span class="text-emerald-400 text-[10px]">●</span>
+                            <span>綠色供應鏈，減少生產碳足跡</span>
+                        </li>
                     </ul>
                 </div>
+
+                <!-- Column 4: Newsletter & Quick Contact -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold tracking-widest text-lumiprimary uppercase">獲得最新研發資訊</h3>
+                    <p class="text-xs text-slate-400">
+                        訂閱電子郵件，獲取第一手專業保養期刊與新配方測試招募通知。
+                    </p>
+                    <form onsubmit="event.preventDefault();" class="flex rounded-full overflow-hidden bg-white/5 border border-white/20 p-1">
+                        <label for="newsletter-email" class="sr-only">電子郵件信箱</label>
+                        <input id="newsletter-email" type="email" placeholder="輸入電子郵件" class="bg-transparent px-3 py-2 text-xs text-white focus:outline-none flex-grow" required>
+                        <button type="submit" class="bg-lumiaccent hover:bg-lumisecondary text-white text-xs font-bold px-4 py-2 rounded-full transition-all">
+                            訂閱
+                        </button>
+                    </form>
+                </div>
+
             </div>
 
-            <!-- Right Scientific Disclaimer -->
-            <div class="md:col-span-3">
-                <h4 class="text-xs font-bold text-white tracking-widest uppercase mb-4">科研聲明</h4>
-                <p class="text-xs leading-relaxed text-slate-500">
-                    本網站展示之所有產品效果、肌膚反饋及臨床測試數據，均源自 LumiScience 東京無菌研發中心之內部臨床實測。由於個人膚質與生活習慣各異，實際使用效果因人而異。
-                </p>
-            </div>
-        </div>
-
-        <!-- Copyright Info -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600">
-            <p>&copy; 2026 LumiScience Lab. Co., Ltd. 版權所有。日本製造。</p>
-            <div class="flex space-x-6 mt-4 sm:mt-0">
-                <span class="hover:text-slate-400">Sustainability 永續計畫</span>
-                <span class="hover:text-slate-400">無殘酷認證 (Cruelty-Free)</span>
+            <!-- Bottom Copyright and Privacy policies -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+                <p>© 2026 LumiScience Lab. 保留所有權利。</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">使用條款</a>
+                    <a href="#" class="hover:text-white transition-colors">隱私權政策</a>
+                    <a href="#" class="hover:text-white transition-colors">永續報告書</a>
+                </div>
             </div>
         </div>
     </footer>
 
+
+    <!-- Core Application Logic Script -->
     <script>
-        /* Interactive Logic & Micro-interactions */
-
-        // 1. Mobile Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-
-        menuBtn.addEventListener('click', () => {
-            const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-            menuBtn.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.classList.toggle('hidden');
-            
-            if (isExpanded) {
-                // Change back to Hamburger icon
-                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-            } else {
-                // Change to Close icon
-                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-            }
-        });
-
-        // 2. Sticky Header Transparent to Dark Blurred Blur effect on Scroll
-        const header = document.getElementById('main-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('bg-lumislate-950/80', 'backdrop-blur-md', 'shadow-lg');
-                header.classList.remove('bg-transparent');
-            } else {
-                header.classList.remove('bg-lumislate-950/80', 'backdrop-blur-md', 'shadow-lg');
-                header.classList.add('bg-transparent');
-            }
-        });
-
-        // 3. Typing Effect for Hero Title
-        const typingText = document.getElementById('typing-text');
-        const words = ["膚無瑕透亮光感", "科技守護天生美態", "探索肌膚發光密碼"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 150;
-
-        function type() {
-            const currentWord = words[wordIndex];
-            if (isDeleting) {
-                typingText.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 50; // faster deletion
-            } else {
-                typingText.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 150; // normal typing
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                isDeleting = true;
-                typingSpeed = 2500; // Pause at end of word
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typingSpeed = 500; // Pause before typing next word
-            }
-
-            setTimeout(type, typingSpeed);
-        }
-        
-        // Start typing on load
-        window.addEventListener('DOMContentLoaded', () => {
-            type();
-        });
-
-
-        // 4. Molecular interactive Background Canvas Animation
+        // --- 1. Scientific Background Canvas Particles (Molecular Interaction Effects) ---
         const canvas = document.getElementById('molecule-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        const maxParticles = 35;
+        let particlesArray = [];
+        const numberOfParticles = 38;
 
+        // Resize function
         function resizeCanvas() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = canvas.parentElement.offsetHeight;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
+        // Particle Blueprint class for custom micro-bonds
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
+                this.size = Math.random() * 4 + 1.5;
                 this.speedX = Math.random() * 0.4 - 0.2;
                 this.speedY = Math.random() * 0.4 - 0.2;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.5 ? '#EFCFE3' : '#E27396';
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                // Simple wall-bounces
+                if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+                if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 211, 199, ${this.opacity})`;
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.65;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
                 ctx.fill();
+                ctx.shadowBlur = 0; // reset
             }
         }
 
         function initParticles() {
-            particles = [];
-            for (let i = 0; i < maxParticles; i++) {
-                particles.push(new Particle());
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
             }
         }
-        initParticles();
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw links between nearby particles representing scientific molecule mesh bonds
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+        // Connect scientific molecules using proximity lines (bonding visual logic)
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let dx = particlesArray[a].x - particlesArray[b].x;
+                    let dy = particlesArray[a].y - particlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 150) {
+                    if (distance < 110) {
+                        opacityValue = 1 - (distance / 110);
+                        ctx.strokeStyle = '#EFCFE3';
+                        ctx.globalAlpha = opacityValue * 0.35;
+                        ctx.lineWidth = 1;
                         ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 211, 199, ${0.15 * (1 - dist/150)})`;
-                        ctx.lineWidth = 0.8;
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
                         ctx.stroke();
                     }
                 }
             }
+        }
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            connectParticles();
             requestAnimationFrame(animateParticles);
         }
+
+        // Onload trigger particles
+        initParticles();
         animateParticles();
 
 
-        // 5. Interactive "Skin Diagnostics" Micro-Quiz Logic
-        const quizData = [
-            {
-                question: "您的主要肌膚困擾是什麼？",
-                options: [
-                    { text: "黯淡無光、膚色不均", score: "essence" },
-                    { text: "乾燥缺水、粗糙不平滑", score: "lotion" },
-                    { text: "換季脆弱、需要快速急救", score: "mask" },
-                    { text: "希望展現無形高級的氛圍感", score: "perfume" }
-                ]
-            },
-            {
-                question: "您最喜歡以下哪種保養體驗？",
-                options: [
-                    { text: "極致清爽，深層瞬效導入", score: "essence" },
-                    { text: "滋潤鎖水，肌膚飽滿彈潤", score: "lotion" },
-                    { text: "密集包覆，宛若SPA的舒壓享受", score: "mask" },
-                    { text: "感官調香，療癒身心的氣息", score: "perfume" }
-                ]
-            },
-            {
-                question: "您平日所處的日常環境主要是？",
-                options: [
-                    { text: "長期待在空調辦公室", score: "lotion" },
-                    { text: "戶外活動，頻繁接觸陽光紫外線", score: "essence" },
-                    { text: "熬夜追劇或工作，膚況亮紅燈", score: "mask" },
-                    { text: "重要約會與聚會場合頻繁", score: "perfume" }
-                ]
-            }
+        // --- 2. Typewriter Effect for Hero Headline Details ---
+        const typewriterElement = document.getElementById('typewriter');
+        const phrases = [
+            "100% 日本製 • 頂尖皮膚修護科學研究所精製。",
+            "珍珠母貝純化配方與高純度玻尿酸，深層修補底層乾燥。",
+            "溫和不刺激，全素無殘害，重現肌膚天生純淨光感。"
         ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 70;
 
-        let currentStep = 0;
-        let scores = { essence: 0, lotion: 0, mask: 0, perfume: 0 };
-
-        const quizStepIndicator = document.getElementById('quiz-step-indicator');
-        const quizProgressPercent = document.getElementById('quiz-progress-percent');
-        const quizProgressBar = document.getElementById('quiz-progress-bar');
-        const quizQuestion = document.getElementById('quiz-question');
-        const quizOptions = document.getElementById('quiz-options');
-        const quizContent = document.getElementById('quiz-content');
-        const quizResult = document.getElementById('quiz-result');
-
-        const productsData = {
-            essence: {
-                name: "LumiScience Essence 王牌發光精華",
-                desc: "恭喜！您最適合王牌發光精華（Product Demo 4.png）。這款精華液富含高純度煙醯胺與深海珍珠精萃，能有效抑制黑色素、深層淡化斑點，助您在日間抵抗環境侵害，夜間加強淨白，重現晶瑩無瑕的透光感。",
-                image: "Product Demo 4.png",
-                id: 2
-            },
-            lotion: {
-                name: "LumiScience Glow Boosting Lotion 煥活光感保濕乳液",
-                desc: "您最需要的是保濕乳液（Product Demo 1.png）。這款質地無比輕盈透氣的保濕乳液富含微分子玻尿酸與天然珍珠精萃，能在角質層鎖緊高倍水分，改善粗糙，讓肌膚整天透出絲絨般柔滑的高級啞光質感。",
-                image: "Product Demo 1.png",
-                id: 0
-            },
-            mask: {
-                name: "LumiScience Aurora Research Series Mask 極光密集修護面膜",
-                desc: "為您極力推薦極光修護面膜（Product Demo 2.png）。這款革命性修護面膜是拯救熬夜暗沉肌與脆弱肌的超級神器。高濃度精華液密集滲入，幫助肌膚迅速降溫、修護受損屏障，重啟柔潤彈力。",
-                image: "Product Demo 2.png",
-                id: 1
-            },
-            perfume: {
-                name: "LumiScience Perfume 光采氛圍極致香氛",
-                desc: "推薦您這款極致香氛（Product Demo 3.png）。它不僅是奢華香水，更融合了獨家氛圍極光因子，帶來迷人、持久的感官享受，展現獨一無二的知性極簡美學。",
-                image: "Product Demo 3.png",
-                id: 3
-            }
-        };
-
-        function renderQuiz() {
-            if (currentStep < quizData.length) {
-                // Show quiz, hide result
-                quizContent.classList.remove('hidden');
-                quizResult.classList.add('hidden');
-
-                // Update indicators
-                const stepNum = currentStep + 1;
-                quizStepIndicator.textContent = `步驟 ${stepNum} 之 3`;
-                const percent = Math.round((stepNum / 3) * 100);
-                quizProgressPercent.textContent = `${percent}% 已完成`;
-                quizProgressBar.style.width = `${percent}%`;
-
-                // Render Question & Options
-                const currentQuiz = quizData[currentStep];
-                quizQuestion.textContent = currentQuiz.question;
-                quizOptions.innerHTML = '';
-
-                currentQuiz.options.forEach((opt, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = "flex items-center text-left p-4 rounded-xl border border-slate-200 bg-white hover:border-lumipink-300 hover:bg-lumipink-50/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lumipink-400 group";
-                    btn.innerHTML = `
-                        <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-lumipink-100 group-hover:text-lumipink-600 flex items-center justify-center font-bold text-xs text-slate-500 mr-3 transition-colors">
-                            ${String.fromCharCode(65 + index)}
-                        </span>
-                        <span class="text-sm font-semibold text-slate-700">${opt.text}</span>
-                    `;
-                    btn.addEventListener('click', () => handleQuizAnswer(opt.score));
-                    quizOptions.appendChild(btn);
-                });
+        function handleTypewriter() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 30; // speed up deleting
             } else {
-                showResult();
-            }
-        }
-
-        function handleQuizAnswer(scoreKey) {
-            scores[scoreKey]++;
-            currentStep++;
-            renderQuiz();
-        }
-
-        function showResult() {
-            quizContent.classList.add('hidden');
-            quizResult.classList.remove('hidden');
-
-            // Find key with max score
-            let recommendedKey = 'essence';
-            let maxScore = -1;
-            for (const key in scores) {
-                if (scores[key] > maxScore) {
-                    maxScore = scores[key];
-                    recommendedKey = key;
-                }
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 70; // typing pace
             }
 
-            // Update result content
-            const recProduct = productsData[recommendedKey];
-            document.getElementById('rec-product-image').src = recProduct.image;
-            document.getElementById('rec-product-image').alt = recProduct.name;
-            document.getElementById('rec-product-name').textContent = recProduct.name;
-            document.getElementById('rec-product-desc').textContent = recProduct.desc;
-            
-            // Set CTA link to auto-navigate to the showcased item
-            document.getElementById('rec-product-btn').addEventListener('click', () => {
-                selectProduct(recProduct.id);
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                // Pause at end of text
+                typingSpeed = 2500;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typingSpeed = 400; // brief pause before new phrase
+            }
+
+            setTimeout(handleTypewriter, typingSpeed);
+        }
+        // Start typing
+        setTimeout(handleTypewriter, 1000);
+
+
+        // --- 3. Interactive Product Tab Management ---
+        function switchProductTab(targetKey) {
+            // Find panels and tab buttons
+            const panels = document.querySelectorAll('.product-panel');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+
+            panels.forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            tabBtns.forEach(btn => {
+                btn.classList.remove('bg-lumiaccent', 'text-white', 'shadow-md');
+                btn.classList.add('bg-slate-50', 'text-lumigrey', 'hover:bg-lumiprimary/30');
+                btn.setAttribute('aria-selected', 'false');
             });
 
-            // Update indicators to 100%
-            quizStepIndicator.textContent = "評估完成";
-            quizProgressPercent.textContent = "100% 已完成";
-            quizProgressBar.style.width = "100%";
+            // Make active
+            const activePanel = document.getElementById(`${targetKey}-panel`);
+            const activeTab = document.getElementById(`${targetKey}-tab`);
+
+            if (activePanel && activeTab) {
+                activePanel.classList.remove('hidden');
+                activePanel.classList.add('animate-[fadeIn_0.5s_ease-out]');
+                
+                activeTab.classList.remove('bg-slate-50', 'text-lumigrey', 'hover:bg-lumiprimary/30');
+                activeTab.classList.add('bg-lumiaccent', 'text-white', 'shadow-md');
+                activeTab.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        // Quick helper to active a specific tab from outside elements
+        function setActiveProductTab(tabId) {
+            const targetKey = tabId.replace('-tab', '');
+            switchProductTab(targetKey);
+        }
+
+
+        // --- 4. Interactive skin-test (Micro Quiz Logic) ---
+        let quizCurrentStep = 1;
+        const totalSteps = 3;
+
+        const q1Block = document.getElementById('question-block-1');
+        const q2Block = document.getElementById('question-block-2');
+        const q3Block = document.getElementById('question-block-3');
+        const resultBlock = document.getElementById('quiz-result-block');
+
+        const prevBtn = document.getElementById('quiz-prev-btn');
+        const nextBtn = document.getElementById('quiz-next-btn');
+        const progressText = document.getElementById('quiz-progress-text');
+        const progressPercent = document.getElementById('quiz-progress-percent');
+        const progressBar = document.getElementById('quiz-progress-bar');
+
+        nextBtn.addEventListener('click', () => {
+            if (quizCurrentStep < totalSteps) {
+                quizCurrentStep++;
+                updateQuizUI();
+            } else if (quizCurrentStep === totalSteps) {
+                // Diagnose final outputs
+                showQuizResult();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (quizCurrentStep > 1) {
+                quizCurrentStep--;
+                updateQuizUI();
+            }
+        });
+
+        function updateQuizUI() {
+            // Update blocks visibility
+            q1Block.classList.add('hidden');
+            q2Block.classList.add('hidden');
+            q3Block.classList.add('hidden');
+            resultBlock.classList.add('hidden');
+
+            if (quizCurrentStep === 1) {
+                q1Block.classList.remove('hidden');
+                prevBtn.classList.add('hidden');
+                nextBtn.innerHTML = `下一步 <i class="fa-solid fa-arrow-right ml-2"></i>`;
+            } else if (quizCurrentStep === 2) {
+                q2Block.classList.remove('hidden');
+                prevBtn.classList.remove('hidden');
+                nextBtn.innerHTML = `下一步 <i class="fa-solid fa-arrow-right ml-2"></i>`;
+            } else if (quizCurrentStep === 3) {
+                q3Block.classList.remove('hidden');
+                prevBtn.classList.remove('hidden');
+                nextBtn.innerHTML = `查看診斷結果 <i class="fa-solid fa-flask ml-2"></i>`;
+            }
+
+            // Update header progress elements
+            progressText.textContent = `問題 ${quizCurrentStep} / ${totalSteps}`;
+            const percentage = Math.round((quizCurrentStep / totalSteps) * 100);
+            progressPercent.textContent = `${percentage}%`;
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        // Diagnostic dynamic calculation logic
+        function showQuizResult() {
+            // Read selected fields
+            const q1Val = document.querySelector('input[name="q1"]:checked').value;
+            const q2Val = document.querySelector('input[name="q2"]:checked').value;
+            const q3Val = document.querySelector('input[name="q3"]:checked').value;
+
+            // Diagnostic logic mapping to specific products
+            let recommendedProduct = {
+                title: "LumiScience 煥光瀅潤晶華液 (LumiScience Essence)",
+                image: "Product Demo 4.png",
+                volume: "30ml e / 1.01 fl. oz.",
+                desc: "高純度胜肽配比極光精華，最符合您目前的急迫抗初老與改善黯沉需求。珍珠蛋白提取與玻尿酸協同配方，深度激活细胞原生膠原，煥醒健康淨透水光感肌膚。",
+                profile: "細胞慢性缺氧、日常微暗沉"
+            };
+
+            if (q1Val === "B" || q2Val === "C" || q3Val === "A") {
+                // Focus on Deep Lotion
+                recommendedProduct = {
+                    title: "Glow Boosting Lotion (煥光瀅潤乳液)",
+                    image: "Product Demo 1.png",
+                    volume: "30ml e / 1.01 fl. oz.",
+                    desc: "完美結合高度保濕與天然修復膜的輕盈乳液。最適合您的深層肌膚缺水與表皮屏障不穩狀態。瞬間補水、極致鎖水，重塑清爽豐潤的天生美態。",
+                    profile: "表皮屏障脆弱、油脂水分不均"
+                };
+            } else if (q1Val === "C" || q2Val === "B" || q3Val === "C") {
+                // Focus on Facial Mask
+                recommendedProduct = {
+                    title: "Aurora Research Series: Facial Mask (極光科研面膜)",
+                    image: "Product Demo 2.png",
+                    volume: "30ml (每片) / 5片裝",
+                    desc: "富含 30ml 頂級醫藥級密集修補精華液的面膜。針對您目前的乾燥脆弱及高度修復需求，能迅速舒緩泛紅、深入細胞基層強效抗敏補水，煥活健康肌底。",
+                    profile: "突發敏感、細胞角質層受損"
+                };
+            } else if (q1Val === "D" || q3Val === "D") {
+                // Focus on Premium Aura Perfume
+                recommendedProduct = {
+                    title: "Aurora Perfume (晨光極境高奢淡香精)",
+                    image: "Product Demo 3.png",
+                    volume: "50ml e / 1.7 fl. oz.",
+                    desc: "晨光露水純淨木質草本香調淡香精。最契合您渴望放鬆舒壓的心境，融合大自然療癒香氣分子，全方位緩解生活緊繃與肌膚壓力，重現怡人的生活美學。",
+                    profile: "壓力大、期待感官身心靈療癒"
+                };
+            }
+
+            // Set result content
+            document.getElementById('recommend-prod-img').src = recommendedProduct.image;
+            document.getElementById('recommend-prod-name').textContent = recommendedProduct.title;
+            document.getElementById('recommend-prod-text').textContent = recommendedProduct.desc;
+            document.getElementById('recommend-prod-volume').textContent = recommendedProduct.volume;
+            document.getElementById('result-profile-desc').textContent = recommendedProduct.profile;
+
+            // Hide form and controls, show result
+            q1Block.classList.add('hidden');
+            q2Block.classList.add('hidden');
+            q3Block.classList.add('hidden');
+            prevBtn.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            
+            // Show result element
+            resultBlock.classList.remove('hidden');
         }
 
         function restartQuiz() {
-            currentStep = 0;
-            scores = { essence: 0, lotion: 0, mask: 0, perfume: 0 };
-            renderQuiz();
+            quizCurrentStep = 1;
+            // Unhide basic controls
+            prevBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+            updateQuizUI();
         }
 
-        // Initialize quiz on start
-        renderQuiz();
 
+        // --- 5. Mobile Responsive Nav Menu Button Toggle ---
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-        // 6. Interactive Product Showcase Tab system
-        const productsList = [
-            {
-                category: "Glow Boosting Lotion",
-                title: "煥活光感保濕乳液",
-                volume: "容量：30ml e / 1.01 fl. oz.",
-                ingredients: "玻尿酸、珍珠萃取物、煙酰胺（維他命B3）及多重光合肽化合物。",
-                usage: "早晚於爽膚水或精華液後使用。取珍珠大小的量，均勻塗抹於面部及頸部，輕柔按摩至完全吸收。",
-                precautions: "請避免直接接觸眼睛。如不慎入眼，請立即以大量清水沖洗。使用後若有任何不適，請立即停止使用並諮詢專業皮膚科醫生。",
-                image: "Product Demo 1.png"
-            },
-            {
-                category: "Aurora Research Series Mask",
-                title: "極光密集修護面膜",
-                volume: "容量：30ml e / 1.01 fl. oz.",
-                ingredients: "超微分子玻尿酸、專利亮白多肽、日本山茶花精萃、維他命原B5。",
-                usage: "潔面並完成基礎護理後，取出面膜均勻敷於面部，輕壓使其完全服貼。靜享 15-20 分鐘後取下，輕拍殘餘精華液至吸收，無需沖洗。",
-                precautions: "本產品為一次性外用保養品。若皮膚本身有傷口、紅腫、濕疹等異常狀況，請暫停使用。敏弱肌膚請先於耳後進行局部測試。",
-                image: "Product Demo 2.png"
-            },
-            {
-                category: "LumiScience Essence",
-                title: "王牌煥白發光精華",
-                volume: "容量：30ml e / 1.01 fl. oz.",
-                ingredients: "高濃度精純煙醯胺、海洋微藻複合亮白因子、維他命C磷酸鎂鹽、天然積雪草修護精粹。",
-                usage: "每日早晚於爽膚水後，取 2-3 滴精華液於掌心，順著肌膚紋理輕柔按壓於臉部及頸部肌膚，直至被徹底吸收。",
-                precautions: "請將產品保存於陰涼乾燥、陽光無法直射之處。內含活性提亮成分，若有微黃色變化屬正常科學現象，請安心使用。",
-                image: "Product Demo 4.png"
-            },
-            {
-                category: "LumiScience Perfume",
-                title: "光采氛圍極致香氛",
-                volume: "容量：50ml e / 1.7 fl. oz.",
-                ingredients: "植物芳香精油、極簡純淨乙醇、高科技感官分子化合物。",
-                usage: "噴灑於脈搏跳動處（如手腕內側、耳後、頸部兩側），利用體溫加速香氣緩慢釋放。亦可進行香水雨式噴灑，讓香氣均勻落於衣物及秀髮。",
-                precautions: "易燃產品，請遠離明火、高溫環境及火源。避免噴灑於面部及破損肌膚，置於兒童無法觸及之處。",
-                image: "Product Demo 3.png"
-            }
-        ];
+        mobileBtn.addEventListener('click', () => {
+            const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+            mobileBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileNav.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
 
-        function selectProduct(index) {
-            // Update active state of tab buttons
-            const tabButtons = document.querySelectorAll('.prod-tab-btn');
-            tabButtons.forEach((btn, i) => {
-                if (i === index) {
-                    btn.classList.add('border-lumipink-300', 'bg-lumipink-50/50', 'shadow-sm');
-                    btn.classList.remove('border-slate-200', 'bg-white', 'hover:bg-slate-50');
-                    btn.setAttribute('aria-expanded', 'true');
-                    btn.querySelector('i').className = "fa-solid fa-chevron-right text-lumipink-500 transform translate-x-1";
-                } else {
-                    btn.classList.remove('border-lumipink-300', 'bg-lumipink-50/50', 'shadow-sm');
-                    btn.classList.add('border-slate-200', 'bg-white', 'hover:bg-slate-50');
-                    btn.setAttribute('aria-expanded', 'false');
-                    btn.querySelector('i').className = "fa-solid fa-chevron-right text-slate-300";
-                }
+        // Close mobile nav on click of any links
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileBtn.setAttribute('aria-expanded', 'false');
             });
-
-            // Update content in details panel with animations
-            const detailPanel = document.getElementById('product-detail-panel');
-            detailPanel.style.opacity = '0.3';
-            detailPanel.style.transform = 'translateY(10px)';
-
-            setTimeout(() => {
-                const prod = productsList[index];
-                document.getElementById('detail-img').src = prod.image;
-                document.getElementById('detail-img').alt = `LumiScience ${prod.category}`;
-                document.getElementById('detail-category').textContent = prod.category;
-                document.getElementById('detail-title').textContent = prod.title;
-                document.getElementById('detail-volume').textContent = prod.volume;
-                document.getElementById('detail-ingredients').textContent = prod.ingredients;
-                document.getElementById('detail-usage').textContent = prod.usage;
-                document.getElementById('detail-precautions').textContent = prod.precautions;
-
-                detailPanel.style.opacity = '1';
-                detailPanel.style.transform = 'translateY(0)';
-            }, 250);
-        }
-
-        // 7. Clipboard Copy Interaction
-        function copyBuyLink(btn) {
-            const tempInput = document.createElement('input');
-            const productName = document.getElementById('detail-title').textContent;
-            tempInput.value = `【LumiScience】科研無瑕系列 - ${productName} (日本製造/科學守護天生美態)。前往診斷獲得您的專屬配方：${window.location.href}`;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            // Change button visual to feed back successful action
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<span class="mr-1">已成功複製購買資訊！</span> <i class="fa-solid fa-check"></i>`;
-            btn.classList.remove('bg-lumislate-900');
-            btn.classList.add('bg-emerald-600');
-
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.add('bg-lumislate-900');
-                btn.classList.remove('bg-emerald-600');
-            }, 3000);
-        }
+        });
     </script>
 </body>
 </html>
