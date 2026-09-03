@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumiScience | 膚無瑕透亮光感 ‧ 科技守護天生美態</title>
+  <meta name="description" content="日本製造極光科研奢華護膚系列。融匯天然珍珠萃取與高純度玻尿酸、煙醯胺，透過超微微脂體包裹技術，喚醒極光般澄澈透亮的美肌光彩。">
+
+  <!-- Google Fonts: Noto Sans HK, Nunito Sans, MonteCarlo for Signature Handscript -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Noto+Sans+HK:wght@300;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,600;0,6..12,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              canvas: '#FFFFFF',
+              primary: '#EFCFE3',   /* 柔和霜凍基底 */
+              secondary: '#E27396', /* 亮部點綴 */
+              accent: '#7D3664',    /* 主互動與 CTA */
+              textPrimary: '#2D2D2D', /* 深層對比文字 */
+              textSecondary: '#666666', /* 輔助說明文字 */
+              glassBorder: 'rgba(255, 255, 255, 0.45)',
+              glassHighlight: 'rgba(226, 115, 150, 0.22)'
+            }
+          },
+          fontFamily: {
+            sans: ['"Nunito Sans"', '"Noto Sans HK"', 'sans-serif'],
+            chinese: ['"Noto Sans HK"', 'sans-serif'],
+            script: ['"MonteCarlo"', 'cursive']
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(125, 54, 100, 0.08), 0 2px 8px 0 rgba(226, 115, 150, 0.06)',
+            'glass-lg': '0 16px 48px 0 rgba(125, 54, 100, 0.12), 0 4px 16px 0 rgba(226, 115, 150, 0.1)',
+            'glow': '0 0 24px rgba(226, 115, 150, 0.35)',
+            'glow-accent': '0 0 28px rgba(125, 54, 100, 0.3)'
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            floatSlow: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-10px) rotate(2deg)' }
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+              '50%': { opacity: 0.85, transform: 'scale(1.04)' }
+            }
+          },
+          animation: {
+            shimmer: 'shimmer 4s infinite linear',
+            float: 'floatSlow 6s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 8s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FDF8FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #EFCFE3;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #E27396;
+    }
+
+    /* Glassmorphism Classes */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 8px 32px 0 rgba(125, 54, 100, 0.08);
+    }
+    .glass-card-tint {
+      background: rgba(239, 207, 227, 0.28);
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .glass-navbar {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(226, 115, 150, 0.18);
+    }
+
+    /* Text Shimmer Effect */
+    .text-shimmer {
+      background: linear-gradient(90deg, #2D2D2D 0%, #7D3664 25%, #E27396 50%, #7D3664 75%, #2D2D2D 100%);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: shimmer 5s linear infinite;
+    }
+
+    /* Accessible Focus Ring */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 2px solid #7D3664;
+      outline-offset: 3px;
+    }
+
+    /* Skip Navigation Link for Accessibility (WCAG 2.1 AA) */
+    .skip-to-content {
+      position: absolute;
+      top: -60px;
+      left: 1rem;
+      background: #7D3664;
+      color: #FFFFFF;
+      padding: 0.75rem 1.25rem;
+      z-index: 9999;
+      transition: top 0.2s ease;
+      font-weight: 600;
+      border-radius: 0.5rem;
+    }
+    .skip-to-content:focus {
+      top: 1rem;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-canvas text-brand-textPrimary font-sans antialiased selection:bg-brand-secondary/30 selection:text-brand-accent overflow-x-hidden relative">
+
+  <!-- Accessible Skip to Content -->
+  <a href="#main-content" class="skip-to-content shadow-lg">跳至主要內容 (Skip to Main Content)</a>
+
+  <!-- Ambient Aurora Glow Orbs for Glass Refraction -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-brand-primary/40 to-brand-secondary/25 blur-3xl animate-pulse-soft"></div>
+    <div class="absolute top-1/3 -right-48 w-[32rem] h-[32rem] rounded-full bg-gradient-to-bl from-brand-primary/30 via-brand-secondary/20 to-transparent blur-3xl animate-pulse-soft" style="animation-delay: 3s;"></div>
+    <div class="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full bg-brand-primary/35 blur-3xl"></div>
+    <div class="absolute -bottom-20 right-10 w-96 h-96 rounded-full bg-brand-secondary/20 blur-3xl"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 w-full glass-navbar transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="group flex items-center space-x-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent rounded-lg p-1" aria-label="LumiScience 首頁">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-accent via-brand-secondary to-brand-primary flex items-center justify-center shadow-md shadow-brand-secondary/20 group-hover:scale-105 transition-transform duration-300">
+            <span class="text-white font-script text-3xl font-semibold leading-none drop-shadow">L</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-script text-3xl md:text-4xl text-brand-accent group-hover:text-brand-secondary transition-colors font-bold tracking-tight">LumiScience</span>
+            <span class="text-[10px] tracking-[0.25em] text-brand-textSecondary uppercase font-semibold -mt-1">Tokyo ‧ Aurora Series</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8" aria-label="主要導航選單">
+          <a href="#hero" class="text-brand-textPrimary hover:text-brand-accent font-medium text-sm tracking-wide transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent hover:after:w-full after:transition-all">探索極光</a>
+          <a href="#diagnosis" class="text-brand-textPrimary hover:text-brand-accent font-medium text-sm tracking-wide transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent hover:after:w-full after:transition-all">科研膚質診斷</a>
+          <a href="#products" class="text-brand-textPrimary hover:text-brand-accent font-medium text-sm tracking-wide transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent hover:after:w-full after:transition-all">極光科研系列</a>
+          <a href="#reviews" class="text-brand-textPrimary hover:text-brand-accent font-medium text-sm tracking-wide transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent hover:after:w-full after:transition-all">用家真實口碑</a>
+          <a href="#campaign" class="text-brand-textPrimary hover:text-brand-accent font-medium text-sm tracking-wide transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-accent hover:after:w-full after:transition-all">最新企劃</a>
+        </nav>
+
+        <!-- CTA & Quick Action -->
+        <div class="hidden sm:flex items-center space-x-4">
+          <button onclick="openModal('giftModal')" class="relative inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-accent hover:bg-[#682c53] shadow-md shadow-brand-accent/25 hover:shadow-lg hover:shadow-brand-accent/35 transition-all duration-300 group overflow-hidden">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+            <i class="fa-solid fa-sparkles mr-2 text-brand-primary text-xs" aria-hidden="true"></i>
+            <span>專屬官網禮遇</span>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="flex items-center md:hidden">
+          <button id="mobile-menu-btn" type="button" class="p-2 rounded-xl text-brand-textPrimary hover:text-brand-accent hover:bg-brand-primary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="展開主要選單">
+            <i id="menu-icon-bars" class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+            <i id="menu-icon-x" class="fa-solid fa-xmark text-xl hidden" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-brand-secondary/20 px-6 pt-4 pb-6 space-y-3" role="region" aria-label="手機端選單">
+      <a href="#hero" class="block py-2 text-base font-medium text-brand-textPrimary hover:text-brand-accent transition-colors">探索極光</a>
+      <a href="#diagnosis" class="block py-2 text-base font-medium text-brand-textPrimary hover:text-brand-accent transition-colors">科研膚質診斷</a>
+      <a href="#products" class="block py-2 text-base font-medium text-brand-textPrimary hover:text-brand-accent transition-colors">極光科研系列</a>
+      <a href="#reviews" class="block py-2 text-base font-medium text-brand-textPrimary hover:text-brand-accent transition-colors">用家真實口碑</a>
+      <a href="#campaign" class="block py-2 text-base font-medium text-brand-textPrimary hover:text-brand-accent transition-colors">最新企劃</a>
+      <div class="pt-2">
+        <button onclick="openModal('giftModal')" class="w-full text-center py-3 rounded-full text-sm font-semibold text-white bg-brand-accent shadow-md shadow-brand-accent/25 hover:bg-[#682c53] transition-colors">
+          專屬官網禮遇
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="relative z-10">
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[92vh] flex items-center justify-center overflow-hidden py-16 lg:py-24" aria-labelledby="hero-title">
+      
+      <!-- Hero Background Image with Refined Glass Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="HeroSection_BG.jpg" 
+          alt="LumiScience 極光科研奢華護膚系列產品，展示香水與微囊精華，流動光效與微脂體分子結構" 
+          class="w-full h-full object-cover object-center scale-105 transform motion-safe:animate-pulse-soft"
+          onerror="this.src='https://placehold.co/1920x1080/EFCFE3/7D3664?text=LumiScience+Hero+Visual'"
+        />
+        <!-- Atmospheric Soft Gradient Mask for High Contrast Readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent lg:w-3/5"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-canvas via-transparent to-white/40"></div>
+      </div>
+
+      <!-- Floating Scientific Molecular Canvas Layer -->
+      <canvas id="moleculeCanvas" class="absolute inset-0 z-1 pointer-events-none w-full h-full" aria-hidden="true"></canvas>
+
+      <!-- Hero Content Container -->
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="max-w-2xl">
+          
+          <!-- Scientific Badge -->
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-brand-secondary/30 backdrop-blur-md shadow-sm mb-6">
+            <span class="w-2 h-2 rounded-full bg-brand-secondary animate-ping"></span>
+            <span class="text-xs font-bold tracking-wider uppercase text-brand-accent">Made in Japan ‧ 日本製造科研認證</span>
+          </div>
+
+          <!-- Typewriter & Shimmer Title -->
+          <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-tight mb-4">
+            <span id="typewriter-text" class="text-shimmer">膚無瑕透亮光感</span>
+            <span id="cursor" class="text-brand-secondary font-light animate-pulse" aria-hidden="true">|</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-xl sm:text-2xl font-semibold text-brand-accent tracking-wide mb-5">
+            科技守護天生美態
+          </p>
+
+          <!-- Descriptive Copy -->
+          <p class="text-base sm:text-lg text-brand-textSecondary leading-relaxed mb-8 max-w-xl">
+            LumiScience 全新推出 Aurora Series 極光科研系列。前沿超微微脂體滲透包裹技術，融匯純天然珍珠萃取與高純度玻尿酸、煙醯胺。每一滴精粹直達肌底，告別暗沉，奢享如極光般的無瑕光澤。
+          </p>
+
+          <!-- CTAs & Trust Badges -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#diagnosis" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-bold text-white bg-brand-accent hover:bg-[#682c53] shadow-lg shadow-brand-accent/30 hover:shadow-xl hover:shadow-brand-accent/40 hover:-translate-y-0.5 transition-all duration-300 group">
+              <span>Explore the Science</span>
+              <i class="fa-solid fa-arrow-right-long ml-3 text-brand-primary group-hover:translate-x-1.5 transition-transform duration-300" aria-hidden="true"></i>
+            </a>
+            <a href="#products" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-semibold text-brand-accent bg-white/80 hover:bg-white border border-brand-primary/60 backdrop-blur-md shadow-md shadow-brand-accent/5 hover:border-brand-secondary transition-all duration-300">
+              <i class="fa-solid fa-flask-vial mr-2 text-brand-secondary" aria-hidden="true"></i>
+              <span>瀏覽全系列產品</span>
+            </a>
+          </div>
+
+          <!-- Feature Matrix Pill (WCAG 2.1 Compliant contrast) -->
+          <div class="grid grid-cols-3 gap-3 mt-10 pt-8 border-t border-brand-primary/40 text-brand-textPrimary">
+            <div class="flex flex-col">
+              <span class="text-xs text-brand-textSecondary font-medium">透亮提升</span>
+              <span class="text-2xl font-extrabold text-brand-accent">+98.6%</span>
+              <span class="text-[11px] text-brand-textSecondary mt-0.5">專利微囊瞬透</span>
+            </div>
+            <div class="flex flex-col border-l border-brand-primary/40 pl-3">
+              <span class="text-xs text-brand-textSecondary font-medium">肌底補水</span>
+              <span class="text-2xl font-extrabold text-brand-accent">24Hrs</span>
+              <span class="text-[11px] text-brand-textSecondary mt-0.5">多重分子玻尿酸</span>
+            </div>
+            <div class="flex flex-col border-l border-brand-primary/40 pl-3">
+              <span class="text-xs text-brand-textSecondary font-medium">品質認證</span>
+              <span class="text-2xl font-extrabold text-brand-accent">100%</span>
+              <span class="text-[11px] text-brand-textSecondary mt-0.5">日本原裝進口</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnosis" class="py-20 lg:py-28 relative overflow-hidden" aria-labelledby="diagnosis-heading">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-primary/30 text-brand-accent text-xs font-bold uppercase tracking-wider mb-3">
+            <i class="fa-solid fa-dna" aria-hidden="true"></i>
+            <span>AI 智慧配方演算</span>
+          </div>
+          <h2 id="diagnosis-heading" class="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary mb-4">
+            肌膚科研診斷測驗
+          </h2>
+          <p class="text-brand-textSecondary text-base sm:text-lg">
+            回答 2 道膚況問題，科研演算法將即時為您配對最適合的 LumiScience 極光護膚處方。
+          </p>
+        </div>
+
+        <!-- Quiz Container: Multi-layered Glassmorphism Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/70 shadow-glass-lg relative overflow-hidden transition-all duration-500" id="quizCard">
+          
+          <!-- Subtle Accent Gradient Ring -->
+          <div class="absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-brand-primary/40 blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+          <!-- Step Indicator -->
+          <div class="flex items-center justify-between mb-8 pb-4 border-b border-brand-primary/30">
+            <div class="flex items-center space-x-3">
+              <span id="quizStepPill" class="px-3 py-1 text-xs font-bold rounded-full bg-brand-accent text-white">步驟 1 / 2</span>
+              <span id="quizStepTitle" class="text-sm font-semibold text-brand-textSecondary">分析目前膚質基礎</span>
+            </div>
+            <div class="flex space-x-1.5" aria-hidden="true">
+              <div id="stepDot1" class="w-8 h-1.5 rounded-full bg-brand-accent transition-all"></div>
+              <div id="stepDot2" class="w-8 h-1.5 rounded-full bg-brand-primary/50 transition-all"></div>
+              <div id="stepDot3" class="w-8 h-1.5 rounded-full bg-brand-primary/50 transition-all"></div>
+            </div>
+          </div>
+
+          <!-- Step 1: Skin Type -->
+          <div id="quizStep1" class="space-y-6 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-brand-textPrimary">請選擇您當前的肌膚狀態：</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="radiogroup" aria-label="肌膚狀態選項">
+              <button onclick="selectSkinType('dry', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary/40 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-droplet-slash text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">乾燥缺水 / 緊繃乾紋</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">洗臉後容易緊繃脫皮，水分流失快速</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinType('dull', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary/40 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-moon text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">暗沉蠟黃 / 膚色不均</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">經常熬夜、疲態明顯，缺乏光澤透光感</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinType('combination', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary/40 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-sliders text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">混合油水失衡 / 毛孔粗大</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">T字易出油、雙頰偏乾，角質粗糙需調養</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinType('sensitive', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary/40 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-shield-heart text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">屏障脆弱 / 換季敏感</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">需要溫和舒緩與強韌修護，拒絕刺激負擔</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Skin Goal -->
+          <div id="quizStep2" class="space-y-6 hidden transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-brand-textPrimary">您最迫切希望實現的美肌願景是？</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="radiogroup" aria-label="美肌願景選項">
+              <button onclick="selectSkinGoal('glow', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-secondary/20 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">極光般無瑕透亮感</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">強效提亮，擊退黑色素沉澱與疲勞色澤</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinGoal('hydrate', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-secondary/20 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-shower text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">深層急救注水彈潤</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">密集滲透潤澤，改善乾紋脫屑，飽滿嘭彈</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinGoal('lock', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-secondary/20 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-feather-pointed text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">清爽長效鎖水潤膚</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">細緻肌膚紋理，撫平乾燥，柔嫩絲滑</p>
+                </div>
+              </button>
+
+              <button onclick="selectSkinGoal('sensory', this)" class="quiz-opt-btn flex items-start p-4 rounded-2xl bg-white/70 hover:bg-white border border-brand-primary/50 hover:border-brand-secondary text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+                <div class="w-10 h-10 rounded-xl bg-brand-secondary/20 flex items-center justify-center text-brand-accent mr-4 shrink-0">
+                  <i class="fa-solid fa-spray-can-sparkles text-lg"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-brand-textPrimary">奢華儀式感香氛療癒</h4>
+                  <p class="text-xs text-brand-textSecondary mt-1">兼具天然植物精油香氣與視覺閃亮微粒</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Scientific Computing & Recommendation Result -->
+          <div id="quizStepResult" class="hidden space-y-6 transition-opacity duration-300">
+            
+            <!-- Computing Simulation (Initial) -->
+            <div id="computingAnim" class="text-center py-10">
+              <div class="inline-block w-14 h-14 border-4 border-brand-primary border-t-brand-accent rounded-full animate-spin mb-4"></div>
+              <h4 class="text-lg font-bold text-brand-accent">LumiScience Lab 正在演算專屬科研配方...</h4>
+              <p class="text-xs text-brand-textSecondary mt-1">比對日本實驗室成分數據庫與活性微脂體穿透率</p>
+            </div>
+
+            <!-- Calculated Result Card -->
+            <div id="resultContent" class="hidden">
+              <div class="bg-white/85 rounded-2xl p-6 border border-brand-secondary/30 shadow-md">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                  
+                  <!-- Product Visual -->
+                  <div class="w-44 h-44 shrink-0 relative bg-brand-primary/20 rounded-2xl p-2 flex items-center justify-center overflow-hidden">
+                    <img id="recProductImg" src="Product Demo 4.png" alt="推薦產品" class="h-full object-contain hover:scale-110 transition-transform duration-300">
+                    <span class="absolute top-2 left-2 bg-brand-accent text-white text-[10px] font-bold px-2 py-0.5 rounded-full">99.4% 匹配度</span>
+                  </div>
+
+                  <!-- Details -->
+                  <div class="flex-1 text-left">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs uppercase tracking-wider font-semibold text-brand-secondary" id="recProductType">精準護膚核心</span>
+                      <span class="text-xs text-brand-textSecondary">• 日本製造 Made in Japan</span>
+                    </div>
+                    <h4 class="text-2xl font-bold text-brand-accent mb-2" id="recProductName">LumiScience Essence (光感亮亮精華液)</h4>
+                    <p class="text-sm text-brand-textSecondary mb-4 leading-relaxed" id="recProductDesc">
+                      強效結合 Hyaluronic Acid 與高濃度 Niacinamide（煙醯胺），運用活性微囊提純技術阻斷暗沉，細緻毛孔並提升透光感。
+                    </p>
+                    
+                    <div class="p-3 bg-brand-primary/20 rounded-xl border border-brand-primary/40 mb-4">
+                      <p class="text-xs text-brand-accent font-semibold flex items-center">
+                        <i class="fa-solid fa-microscope mr-2 text-brand-secondary"></i>
+                        推薦使用方案：<span class="font-normal text-brand-textPrimary ml-1" id="recUsagePlan">早晚潔面爽膚後取 3-4 滴均勻塗抹，輕按至微脂體微囊完全釋放滲透。</span>
+                      </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                      <a href="#products" class="px-6 py-2.5 rounded-full bg-brand-accent text-white text-sm font-bold shadow hover:bg-[#682c53] transition-colors">
+                        查看產品規格與使用說明
+                      </a>
+                      <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-full bg-white border border-brand-primary text-brand-textSecondary hover:text-brand-accent text-sm font-medium transition-colors">
+                        <i class="fa-solid fa-rotate-left mr-1.5"></i>重新測驗
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="products" class="py-20 lg:py-28 relative" aria-labelledby="products-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-primary/30 text-brand-accent text-xs font-bold uppercase tracking-wider mb-3">
+            <i class="fa-solid fa-atom" aria-hidden="true"></i>
+            <span>Aurora Research Series ‧ 極光科研奢華護膚系列</span>
+          </div>
+          <h2 id="products-heading" class="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary mb-4">
+            科技與天然的極致奢華交織
+          </h2>
+          <p class="text-brand-textSecondary text-base sm:text-lg">
+            全線產品均於日本製造（Made in Japan）。嚴選天然珍珠萃取與高活性科研配方，微囊滲透，締造極光透亮水光肌。
+          </p>
+        </div>
+
+        <!-- Product Grid (4 Items) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <!-- Product 1: Glow Boosting Lotion -->
+          <article class="glass-card rounded-3xl p-6 border border-white/80 shadow-glass hover:shadow-glass-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <!-- Badge -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[11px] font-bold text-brand-accent bg-brand-primary/40 px-2.5 py-1 rounded-full">
+                  <i class="fa-solid fa-circle-check mr-1 text-brand-secondary"></i>日本製造
+                </span>
+                <span class="text-xs text-brand-textSecondary font-semibold">30ml / 1.01 fl. oz.</span>
+              </div>
+
+              <!-- Product Image -->
+              <div class="relative w-full h-64 rounded-2xl bg-white/40 flex items-center justify-center p-4 mb-5 overflow-hidden group-hover:bg-brand-primary/15 transition-colors">
+                <img 
+                  src="Product Demo 1.png" 
+                  alt="LumiScience Glow Boosting Lotion 煥采亮澤乳液 瓶裝" 
+                  class="h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                  onerror="this.src='https://placehold.co/400x500/EFCFE3/7D3664?text=Lotion'"
+                />
+              </div>
+
+              <!-- Content -->
+              <h3 class="text-lg font-bold text-brand-accent mb-1 group-hover:text-brand-secondary transition-colors">
+                煥采亮澤乳液
+              </h3>
+              <p class="text-xs text-brand-textSecondary font-semibold mb-3">Glow Boosting Lotion</p>
+              
+              <!-- Ingredients Pills -->
+              <div class="space-y-2 text-xs mb-4">
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-primary/40 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">純天然</span>
+                  <span class="text-brand-textSecondary">高純度珍珠萃取 (Pearl Extract)，賦予母貝細緻微光。</span>
+                </div>
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-secondary/20 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">高科技</span>
+                  <span class="text-brand-textSecondary">多重分子量玻尿酸 (HA) + 超微微脂體長效鎖水。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Modal Trigger Button -->
+            <button onclick="openProductModal('p1')" class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-primary/60 font-semibold text-xs transition-all duration-300 flex items-center justify-center shadow-sm">
+              <span>查看使用方法與科研規格</span>
+              <i class="fa-solid fa-chevron-right ml-2 text-[10px]"></i>
+            </button>
+          </article>
+
+          <!-- Product 2: Aurora Facial Mask -->
+          <article class="glass-card rounded-3xl p-6 border border-white/80 shadow-glass hover:shadow-glass-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <!-- Badge -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[11px] font-bold text-brand-accent bg-brand-primary/40 px-2.5 py-1 rounded-full">
+                  <i class="fa-solid fa-circle-check mr-1 text-brand-secondary"></i>日本製造
+                </span>
+                <span class="text-xs text-brand-textSecondary font-semibold">30ml 濃縮精華/片</span>
+              </div>
+
+              <!-- Product Image -->
+              <div class="relative w-full h-64 rounded-2xl bg-white/40 flex items-center justify-center p-4 mb-5 overflow-hidden group-hover:bg-brand-primary/15 transition-colors">
+                <img 
+                  src="Product Demo 2.png" 
+                  alt="LumiScience Aurora Research Series Facial Mask 極光科研系列面膜" 
+                  class="h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                  onerror="this.src='https://placehold.co/400x500/EFCFE3/7D3664?text=Mask'"
+                />
+              </div>
+
+              <!-- Content -->
+              <h3 class="text-lg font-bold text-brand-accent mb-1 group-hover:text-brand-secondary transition-colors">
+                極光科研系列面膜
+              </h3>
+              <p class="text-xs text-brand-textSecondary font-semibold mb-3">Aurora Series: Facial Mask</p>
+              
+              <!-- Ingredients Pills -->
+              <div class="space-y-2 text-xs mb-4">
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-primary/40 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">純天然</span>
+                  <span class="text-brand-textSecondary">天然珍珠萃取深入肌底賦活沉悶膚色，還原原生透亮。</span>
+                </div>
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-secondary/20 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">高科技</span>
+                  <span class="text-brand-textSecondary">高科技生物纖維面膜布，密閉加壓深層充盈水分。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Modal Trigger Button -->
+            <button onclick="openProductModal('p2')" class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-primary/60 font-semibold text-xs transition-all duration-300 flex items-center justify-center shadow-sm">
+              <span>查看使用方法與科研規格</span>
+              <i class="fa-solid fa-chevron-right ml-2 text-[10px]"></i>
+            </button>
+          </article>
+
+          <!-- Product 3: Perfume -->
+          <article class="glass-card rounded-3xl p-6 border border-white/80 shadow-glass hover:shadow-glass-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <!-- Badge -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[11px] font-bold text-brand-accent bg-brand-primary/40 px-2.5 py-1 rounded-full">
+                  <i class="fa-solid fa-circle-check mr-1 text-brand-secondary"></i>日本製造
+                </span>
+                <span class="text-xs text-brand-textSecondary font-semibold">50ml / 1.7 fl. oz.</span>
+              </div>
+
+              <!-- Product Image -->
+              <div class="relative w-full h-64 rounded-2xl bg-white/40 flex items-center justify-center p-4 mb-5 overflow-hidden group-hover:bg-brand-primary/15 transition-colors">
+                <img 
+                  src="Product Demo 3.png" 
+                  alt="LumiScience Perfume 光感星砂香水" 
+                  class="h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                  onerror="this.src='https://placehold.co/400x500/EFCFE3/7D3664?text=Perfume'"
+                />
+              </div>
+
+              <!-- Content -->
+              <h3 class="text-lg font-bold text-brand-accent mb-1 group-hover:text-brand-secondary transition-colors">
+                光感星砂香水
+              </h3>
+              <p class="text-xs text-brand-textSecondary font-semibold mb-3">LumiScience Perfume</p>
+              
+              <!-- Ingredients Pills -->
+              <div class="space-y-2 text-xs mb-4">
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-primary/40 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">純天然</span>
+                  <span class="text-brand-textSecondary">精選天然植物精油 (Fragrance Oils) 奢華多層次香氣。</span>
+                </div>
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-secondary/20 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">高科技</span>
+                  <span class="text-brand-textSecondary">高科技流沙懸浮微粒技術，搖晃流動極光星砂。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Modal Trigger Button -->
+            <button onclick="openProductModal('p3')" class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-primary/60 font-semibold text-xs transition-all duration-300 flex items-center justify-center shadow-sm">
+              <span>查看使用方法與科研規格</span>
+              <i class="fa-solid fa-chevron-right ml-2 text-[10px]"></i>
+            </button>
+          </article>
+
+          <!-- Product 4: Essence -->
+          <article class="glass-card rounded-3xl p-6 border border-white/80 shadow-glass hover:shadow-glass-lg hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <!-- Badge -->
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[11px] font-bold text-brand-accent bg-brand-primary/40 px-2.5 py-1 rounded-full">
+                  <i class="fa-solid fa-circle-check mr-1 text-brand-secondary"></i>日本製造
+                </span>
+                <span class="text-xs text-brand-textSecondary font-semibold">30ml / 1.01 fl. oz.</span>
+              </div>
+
+              <!-- Product Image -->
+              <div class="relative w-full h-64 rounded-2xl bg-white/40 flex items-center justify-center p-4 mb-5 overflow-hidden group-hover:bg-brand-primary/15 transition-colors">
+                <img 
+                  src="Product Demo 4.png" 
+                  alt="LumiScience Essence 光感亮亮精華液" 
+                  class="h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                  onerror="this.src='https://placehold.co/400x500/EFCFE3/7D3664?text=Essence'"
+                />
+              </div>
+
+              <!-- Content -->
+              <h3 class="text-lg font-bold text-brand-accent mb-1 group-hover:text-brand-secondary transition-colors">
+                光感亮亮精華液
+              </h3>
+              <p class="text-xs text-brand-textSecondary font-semibold mb-3">LumiScience Essence</p>
+              
+              <!-- Ingredients Pills -->
+              <div class="space-y-2 text-xs mb-4">
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-primary/40 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">純天然</span>
+                  <span class="text-brand-textSecondary">天然珍珠萃取 Pearl Extract，活化沉睡肌膚健康光采。</span>
+                </div>
+                <div class="flex items-start">
+                  <span class="inline-block px-1.5 py-0.5 rounded bg-brand-secondary/20 text-brand-accent font-bold text-[10px] mr-1.5 shrink-0">高科技</span>
+                  <span class="text-brand-textSecondary">高純度玻尿酸 + 煙醯胺 (Niacinamide) 活性微囊提純。</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Modal Trigger Button -->
+            <button onclick="openProductModal('p4')" class="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-primary/60 font-semibold text-xs transition-all duration-300 flex items-center justify-center shadow-sm">
+              <span>查看使用方法與科研規格</span>
+              <i class="fa-solid fa-chevron-right ml-2 text-[10px]"></i>
+            </button>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="reviews" class="py-20 lg:py-28 relative overflow-hidden bg-gradient-to-b from-transparent via-brand-primary/15 to-transparent" aria-labelledby="reviews-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <!-- Section Header with Controls -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-primary/40 text-brand-accent text-xs font-bold uppercase tracking-wider mb-3">
+              <i class="fa-solid fa-star text-amber-400" aria-hidden="true"></i>
+              <span>社交媒體社群見證 ‧ Social Proof</span>
+            </div>
+            <h2 id="reviews-heading" class="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary">
+              真實用家口碑讚譽
+            </h2>
+            <p class="text-brand-textSecondary text-base mt-2">
+              來自 Instagram 與 Threads 護膚達人第一手心得回饋
+            </p>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="flex items-center space-x-3 mt-6 md:mt-0" aria-label="用家評價輪播控制項">
+            <button id="carouselPrev" class="w-12 h-12 rounded-full glass-card border border-brand-primary/60 text-brand-accent hover:bg-brand-accent hover:text-white flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent shadow-sm" aria-label="上一頁評價">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button id="carouselNext" class="w-12 h-12 rounded-full glass-card border border-brand-primary/60 text-brand-accent hover:bg-brand-accent hover:text-white flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent shadow-sm" aria-label="下一頁評價">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Carousel Viewport (Strictly 3 cards visible at a time on desktop) -->
+        <div class="overflow-hidden relative" id="carouselViewport">
+          <div id="carouselTrack" class="flex transition-transform duration-500 ease-out">
+            
+            <!-- Card 1 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@skin_lover_katie</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    ✨日本製造嘅 LumiScience 乳液真係超級驚喜！吸收極快完全不黏膩，搽完之後肌膚即時有種珍珠光澤感，乾紋都修復埋！真係好用～💖
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#煥采亮澤乳液</span>
+                  <span><i class="fa-brands fa-instagram text-pink-500 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@beauty_jessica</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    🌸呢款極光面膜一片有成 30ml 濃縮精華！貼服度滿分，敷完 15 分鐘之後皮膚水潤到爆燈，暗沉即時走晒，極光透亮感妥妥的！😍
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#極光科研系列面膜</span>
+                  <span><i class="fa-brands fa-threads text-neutral-800 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@chloee_daily</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    ✨美到哭！LumiScience 星砂香水搖勻個陣有粉紅星砂喺度閃，香味高級又有層次，好溫柔嘅植物精油香，持久度超高，簡直係仙女必備～質感滿分！🌸
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#光感星砂香水</span>
+                  <span><i class="fa-brands fa-instagram text-pink-500 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@valerie_lifestyle</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    💎用咗光感亮亮精華兩星期，煙醯胺加上玻尿酸真係神奇組合！毛孔變細咗，整體膚色白咗一個 Step，皮膚仲閃爍住極光透亮光澤，無限回購！✨
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#光感亮亮精華液</span>
+                  <span><i class="fa-brands fa-threads text-neutral-800 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@grace_beauty_notes</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    💖將 Glow Boosting 乳液配埋 Essence 精華一齊用，保濕同提亮效果加倍！今個冬天靠晒佢哋，肌膚無瑕透亮，素顏出街都有自信，真心大推！✨
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#極光科研全套</span>
+                  <span><i class="fa-brands fa-instagram text-pink-500 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 p-3">
+              <div class="glass-card rounded-3xl p-6 h-full border border-white/80 shadow-glass flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-bold text-sm text-brand-accent">@mina_skincare</span>
+                    <div class="text-amber-400 text-xs" aria-label="5星好評">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                  </div>
+                  <p class="text-sm text-brand-textPrimary leading-relaxed">
+                    急救面膜首選！面膜紙超級貼面，敷完皮膚即時泵滿水，隔日上妝服帖到不得了，徹底告別浮粉困擾！日本製造品質真心安心，一定會持續囤貨～✨💧
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-brand-primary/30 flex items-center justify-between text-xs text-brand-textSecondary">
+                  <span class="text-brand-secondary font-medium">#急救面膜</span>
+                  <span><i class="fa-brands fa-instagram text-pink-500 mr-1"></i>已驗證真實用家</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Carousel Pagination Dots -->
+        <div class="flex justify-center items-center space-x-2 mt-8" id="carouselIndicators" aria-label="輪播導航指示點">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <section id="campaign" class="py-20 lg:py-28 relative" aria-labelledby="campaign-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="glass-card rounded-3xl p-6 sm:p-10 lg:p-14 border border-white/80 shadow-glass-lg relative overflow-hidden">
+          
+          <!-- Prism Light Backdrop Effect -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-brand-primary/50 blur-3xl" aria-hidden="true"></div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- Poster Display (Left Col) -->
+            <div class="lg:col-span-5 relative group">
+              <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/60 bg-white">
+                <img 
+                  src="Demo-leaflet-final-v1.png" 
+                  alt="LumiScience 極光科研宣傳海報，展示全套護膚品、幾何稜鏡折射底座與官方 QR Code" 
+                  class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  onerror="this.src='https://placehold.co/800x1100/EFCFE3/7D3664?text=LumiScience+Campaign'"
+                />
+                <!-- Subtle Glass Sheen on Poster -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-white/20 via-transparent to-brand-primary/20 pointer-events-none"></div>
+              </div>
+              <div class="absolute -bottom-3 -right-3 bg-brand-accent text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                官方專屬限定企劃
+              </div>
+            </div>
+
+            <!-- Campaign Copy & Call To Action (Right Col) -->
+            <div class="lg:col-span-7 space-y-6">
+              
+              <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-brand-secondary/15 border border-brand-secondary/30 text-brand-accent text-xs font-bold uppercase tracking-wider">
+                <i class="fa-solid fa-gift text-brand-secondary" aria-hidden="true"></i>
+                <span>Exclusive Campaign ‧ 限時尊享</span>
+              </div>
+
+              <h2 id="campaign-heading" class="text-3xl sm:text-4xl font-extrabold text-brand-textPrimary leading-tight">
+                極光科研 ‧ 奢華綻放
+              </h2>
+
+              <p class="text-base sm:text-lg text-brand-textSecondary leading-relaxed">
+                肌膚的耀眼光采，來自科技與自然的完美交織。LumiScience 全新推出 Aurora Series 極光科研系列，以前沿高科技包裹技術結合天然珍珠萃取與植物精油，讓每一滴精華精準滲透肌底。
+              </p>
+
+              <div class="p-5 rounded-2xl bg-white/70 border border-brand-primary/60 space-y-3">
+                <h3 class="font-bold text-brand-accent flex items-center text-sm">
+                  <i class="fa-solid fa-qrcode text-lg mr-2 text-brand-secondary"></i>
+                  限時體驗 ‧ 專屬官網購物禮遇
+                </h3>
+                <p class="text-xs sm:text-sm text-brand-textSecondary">
+                  即刻掃瞄海報 QR Code 或點擊下方按鈕，登記領取極光科研體驗裝，首次下單更享免運費及限定流光化妝包！
+                </p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                <button onclick="openModal('giftModal')" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-base font-bold text-white bg-brand-accent hover:bg-[#682c53] shadow-md shadow-brand-accent/25 hover:shadow-lg transition-all">
+                  <i class="fa-solid fa-envelope-open-text mr-2"></i>
+                  <span>立即領取限定體驗禮遇</span>
+                </button>
+                <a href="#products" class="inline-flex items-center justify-center px-6 py-4 rounded-full text-sm font-semibold text-brand-accent hover:text-brand-secondary transition-colors">
+                  <span>探索系列專利成分</span>
+                  <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="community" class="py-16 relative" aria-labelledby="community-heading">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        <h2 id="community-heading" class="text-2xl sm:text-3xl font-bold text-brand-textPrimary mb-3">
+          追蹤官方社群 ‧ 關注最新科研美肌
+        </h2>
+        <p class="text-brand-textSecondary text-sm sm:text-base max-w-xl mx-auto mb-8">
+          探索科研日常、護膚專家指南與限定禮遇，加入全球 LumiScience 美肌社群。
+        </p>
+
+        <!-- Social Media Pills -->
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="glass-card hover:bg-white px-6 py-3.5 rounded-2xl border border-brand-primary/60 hover:border-pink-400 flex items-center space-x-3 text-brand-textPrimary hover:text-pink-600 transition-all shadow-sm hover:shadow-md group">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-xs text-brand-textSecondary font-semibold">Instagram</span>
+              <span class="block text-sm font-bold">@LumiScience</span>
+            </div>
+          </a>
+
+          <a href="https://threads.net" target="_blank" rel="noopener noreferrer" class="glass-card hover:bg-white px-6 py-3.5 rounded-2xl border border-brand-primary/60 hover:border-neutral-700 flex items-center space-x-3 text-brand-textPrimary hover:text-black transition-all shadow-sm hover:shadow-md group">
+            <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform">
+              <i class="fa-brands fa-threads"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-xs text-brand-textSecondary font-semibold">Threads</span>
+              <span class="block text-sm font-bold">@LumiScience</span>
+            </div>
+          </a>
+
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="glass-card hover:bg-white px-6 py-3.5 rounded-2xl border border-brand-primary/60 hover:border-red-500 flex items-center space-x-3 text-brand-textPrimary hover:text-red-600 transition-all shadow-sm hover:shadow-md group">
+            <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform">
+              <i class="fa-brands fa-youtube"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-xs text-brand-textSecondary font-semibold">YouTube</span>
+              <span class="block text-sm font-bold">@LumiScience</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="glass-navbar border-t border-brand-primary/40 pt-16 pb-12 relative z-10 text-brand-textPrimary">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Footer Top Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-brand-primary/30">
+        
+        <!-- Brand Info (Col 1-2) -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="font-script text-4xl text-brand-accent font-bold">LumiScience</span>
+          </div>
+          <p class="text-sm text-brand-textSecondary leading-relaxed max-w-sm">
+            東京實驗室專研。以科研微囊封存大自然至純精粹，科技守護天生美態。全線產品秉持日本極致工藝生產。
+          </p>
+          <!-- Sustainability Commitment -->
+          <div class="pt-2">
+            <div class="flex items-center space-x-2 text-xs font-bold text-brand-accent">
+              <i class="fa-solid fa-leaf text-emerald-600"></i>
+              <span>Sustainability 永續環保承諾</span>
+            </div>
+            <p class="text-xs text-brand-textSecondary mt-1">
+              全系列包裝採用可回收玻璃容器與 FSC 認證環保紙材，零殘忍無動物測試。
+            </p>
+          </div>
+        </div>
+
+        <!-- Navigation Links (Col 3) -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-brand-accent mb-4">探索系列</h3>
+          <ul class="space-y-2.5 text-sm text-brand-textSecondary">
+            <li><a href="#products" class="hover:text-brand-accent transition-colors">煥采亮澤乳液</a></li>
+            <li><a href="#products" class="hover:text-brand-accent transition-colors">極光科研系列面膜</a></li>
+            <li><a href="#products" class="hover:text-brand-accent transition-colors">光感星砂香水</a></li>
+            <li><a href="#products" class="hover:text-brand-accent transition-colors">光感亮亮精華液</a></li>
+          </ul>
+        </div>
+
+        <!-- Science & Lab (Col 4) -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-brand-accent mb-4">科研核心</h3>
+          <ul class="space-y-2.5 text-sm text-brand-textSecondary">
+            <li><span class="cursor-default">超微微脂體包裹專利</span></li>
+            <li><span class="cursor-default">高純度天然珍珠萃取</span></li>
+            <li><span class="cursor-default">多重分子量玻尿酸</span></li>
+            <li><span class="cursor-default">日本安全防護標準</span></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription (Col 5) -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-brand-accent mb-4">尊享科研通訊</h3>
+          <p class="text-xs text-brand-textSecondary mb-3">訂閱即獲最新科研護膚文獻與限定官網禮遇。</p>
+          <form onsubmit="handleSubscribe(event)" class="space-y-2">
+            <label for="newsletter-email" class="sr-only">電子郵件信箱</label>
+            <input 
+              type="email" 
+              id="newsletter-email" 
+              required 
+              placeholder="輸入您的電郵地址" 
+              class="w-full px-4 py-2 text-xs rounded-xl bg-white border border-brand-primary/60 text-brand-textPrimary placeholder:text-brand-textSecondary/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent"
+            />
+            <button type="submit" class="w-full py-2 px-4 rounded-xl bg-brand-accent hover:bg-[#682c53] text-white text-xs font-bold transition-colors">
+              即刻訂閱
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom Compliance & Accessibility Notes -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-brand-textSecondary space-y-4 md:space-y-0">
+        <p>© 2026 LumiScience Skincare Inc. All rights reserved. Made in Japan.</p>
+        <div class="flex items-center space-x-6">
+          <span class="inline-flex items-center text-emerald-700">
+            <i class="fa-solid fa-universal-access mr-1.5" aria-hidden="true"></i>
+            符合 WCAG 2.1 AA 無障礙規範
+          </span>
+          <a href="#" class="hover:text-brand-accent transition-colors">隱私權政策</a>
+          <a href="#" class="hover:text-brand-accent transition-colors">條款與細則</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modalProductName">
+    <div class="glass-card bg-white/95 rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-white/90 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-brand-primary/30 hover:bg-brand-secondary/30 text-brand-accent flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent" aria-label="關閉產品詳情">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Modal Content Container -->
+      <div id="modalDynamicBody" class="space-y-6">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <div id="giftModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/40 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="giftModalTitle">
+    <div class="glass-card bg-white/95 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-white/90 shadow-2xl relative">
+      
+      <button onclick="closeModal('giftModal')" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-brand-primary/30 hover:bg-brand-secondary/30 text-brand-accent flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent" aria-label="關閉禮遇視窗">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center">
+        <div class="w-14 h-14 rounded-2xl bg-brand-primary/40 text-brand-accent flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+          <i class="fa-solid fa-gift"></i>
+        </div>
+        <h3 id="giftModalTitle" class="text-2xl font-bold text-brand-accent mb-2">專屬官網尊享禮遇</h3>
+        <p class="text-xs text-brand-textSecondary mb-6 leading-relaxed">
+          登記即享 LumiScience 極光科研體驗裝（含精華與面膜各一份），並於官網首單結帳立享 85 折優惠！
+        </p>
+
+        <form onsubmit="handleGiftClaim(event)" class="space-y-4 text-left">
+          <div>
+            <label for="gift-name" class="block text-xs font-semibold text-brand-textPrimary mb-1">您的稱呼</label>
+            <input type="text" id="gift-name" required placeholder="例如：張小姐 / Katie" class="w-full px-4 py-2.5 rounded-xl border border-brand-primary/70 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+          </div>
+          <div>
+            <label for="gift-phone" class="block text-xs font-semibold text-brand-textPrimary mb-1">聯絡電話</label>
+            <input type="tel" id="gift-phone" required placeholder="例如：+852 9123 4567" class="w-full px-4 py-2.5 rounded-xl border border-brand-primary/70 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+          </div>
+          <div>
+            <label for="gift-email" class="block text-xs font-semibold text-brand-textPrimary mb-1">電子郵箱</label>
+            <input type="email" id="gift-email" required placeholder="name@example.com" class="w-full px-4 py-2.5 rounded-xl border border-brand-primary/70 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent">
+          </div>
+
+          <button type="submit" class="w-full py-3 rounded-full bg-brand-accent hover:bg-[#682c53] text-white text-sm font-bold shadow-md shadow-brand-accent/20 transition-all mt-2">
+            即刻預約領取體驗禮
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" role="status" aria-live="polite">
+    <div class="glass-card bg-white/95 px-5 py-3 rounded-2xl border border-brand-secondary/40 shadow-xl flex items-center space-x-3 pointer-events-auto">
+      <div id="toastIcon" class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <p id="toastMessage" class="text-xs sm:text-sm font-medium text-brand-textPrimary">操作成功</p>
+    </div>
+  </div>
+
+  <script>
+    /* -------------------------------------------------------------
+       1. Mobile Menu Toggle
+    -------------------------------------------------------------- */
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const barsIcon = document.getElementById('menu-icon-bars');
+    const xIcon = document.getElementById('menu-icon-x');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+      barsIcon.classList.toggle('hidden');
+      xIcon.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when anchor link clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        barsIcon.classList.remove('hidden');
+        xIcon.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* -------------------------------------------------------------
+       2. Typewriter Effect for Hero Title
+    -------------------------------------------------------------- */
+    const typewriterEl = document.getElementById('typewriter-text');
+    const phrases = ["膚無瑕透亮光感", "極光科研奢華綻放", "日本製造肌底透亮"];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    let typeSpeed = 150;
+
+    function handleTypewriter() {
+      const currentPhrase = phrases[phraseIdx];
+      
+      if (isDeleting) {
+        typewriterEl.textContent = currentPhrase.substring(0, charIdx - 1);
+        charIdx--;
+        typeSpeed = 75;
+      } else {
+        typewriterEl.textContent = currentPhrase.substring(0, charIdx + 1);
+        charIdx++;
+        typeSpeed = 160;
+      }
+
+      if (!isDeleting && charIdx === currentPhrase.length) {
+        // Pause at finish
+        isDeleting = true;
+        typeSpeed = 2200;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        typeSpeed = 450;
+      }
+
+      setTimeout(handleTypewriter, typeSpeed);
+    }
+    // Initiate Typewriter on DOM Ready
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(handleTypewriter, 600);
+      initMoleculeCanvas();
+      initCarousel();
+    });
+
+    /* -------------------------------------------------------------
+       3. Floating Scientific Molecules on Canvas
+    -------------------------------------------------------------- */
+    function initMoleculeCanvas() {
+      const canvas = document.getElementById('moleculeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+
+      function resize() {
+        width = canvas.width = canvas.parentElement.offsetWidth;
+        height = canvas.height = canvas.parentElement.offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.6;
+          this.vy = (Math.random() - 0.5) * 0.6;
+          this.radius = Math.random() * 2.5 + 1.2;
+          this.alpha = Math.random() * 0.5 + 0.2;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(226, 115, 150, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      const particleCount = Math.min(Math.floor(width / 35), 35);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        // Draw connection lines between nearby particles (Molecular bonds)
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 110) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(239, 207, 227, ${0.4 * (1 - dist / 110)})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    /* -------------------------------------------------------------
+       4. Skin Diagnosis Micro-Quiz Logic
+    -------------------------------------------------------------- */
+    let quizAnswers = {
+      skinType: '',
+      skinGoal: ''
+    };
+
+    function selectSkinType(type, btnElement) {
+      quizAnswers.skinType = type;
+      // Visual feedback
+      document.querySelectorAll('#quizStep1 .quiz-opt-btn').forEach(b => {
+        b.classList.remove('ring-2', 'ring-brand-accent', 'bg-white');
+      });
+      btnElement.classList.add('ring-2', 'ring-brand-accent', 'bg-white');
+
+      setTimeout(() => {
+        document.getElementById('quizStep1').classList.add('hidden');
+        document.getElementById('quizStep2').classList.remove('hidden');
+        document.getElementById('quizStepPill').textContent = '步驟 2 / 2';
+        document.getElementById('quizStepTitle').textContent = '鎖定核心護膚痛點';
+        document.getElementById('stepDot2').classList.add('bg-brand-accent');
+        document.getElementById('stepDot2').classList.remove('bg-brand-primary/50');
+      }, 250);
+    }
+
+    function selectSkinGoal(goal, btnElement) {
+      quizAnswers.skinGoal = goal;
+      document.querySelectorAll('#quizStep2 .quiz-opt-btn').forEach(b => {
+        b.classList.remove('ring-2', 'ring-brand-accent', 'bg-white');
+      });
+      btnElement.classList.add('ring-2', 'ring-brand-accent', 'bg-white');
+
+      setTimeout(() => {
+        document.getElementById('quizStep2').classList.add('hidden');
+        document.getElementById('quizStepResult').classList.remove('hidden');
+        document.getElementById('quizStepPill').textContent = '診斷完成';
+        document.getElementById('quizStepTitle').textContent = '專屬科研處方配對';
+        document.getElementById('stepDot3').classList.add('bg-brand-accent');
+        document.getElementById('stepDot3').classList.remove('bg-brand-primary/50');
+
+        // Show computing animation for 1.2s then display calculated result
+        setTimeout(() => {
+          document.getElementById('computingAnim').classList.add('hidden');
+          computeRecommendation();
+          document.getElementById('resultContent').classList.remove('hidden');
+        }, 1200);
+      }, 250);
+    }
+
+    function computeRecommendation() {
+      const recImg = document.getElementById('recProductImg');
+      const recType = document.getElementById('recProductType');
+      const recName = document.getElementById('recProductName');
+      const recDesc = document.getElementById('recProductDesc');
+      const recPlan = document.getElementById('recUsagePlan');
+
+      // Logic mapping based on user inputs
+      if (quizAnswers.skinGoal === 'sensory') {
+        recImg.src = 'Product Demo 3.png';
+        recType.textContent = '奢華香氛儀式';
+        recName.textContent = 'LumiScience Perfume (光感星砂香水)';
+        recDesc.textContent = '天然萃取植物精油揉合高科技流沙懸浮星砂微粒，噴灑間營造如極光般的夢幻香氛視覺饗宴。';
+        recPlan.textContent = '距肌膚 15-20 公分處噴灑於手腕及耳後頸部等脈搏處。';
+      } else if (quizAnswers.skinGoal === 'hydrate' || quizAnswers.skinType === 'dry') {
+        recImg.src = 'Product Demo 2.png';
+        recType.textContent = '密集注水急救';
+        recName.textContent = 'LumiScience Aurora Series Facial Mask (極光科研系列面膜)';
+        recDesc.textContent = '每片承載 30ml 高濃縮玻尿酸與天然珍珠萃取，高科技生物纖維布膜形成密閉壓導層，短時間充盈肌底水分。';
+        recPlan.textContent = '潔面爽膚後敷貼 15-20 分鐘，揭除後輕拍殘餘精華至完全吸收。';
+      } else if (quizAnswers.skinGoal === 'lock' || quizAnswers.skinType === 'combination') {
+        recImg.src = 'Product Demo 1.png';
+        recType.textContent = '長效修護鎖水';
+        recName.textContent = 'LumiScience Glow Boosting Lotion (煥采亮澤乳液)';
+        recDesc.textContent = '天然高純度母貝珍珠萃取溫和提亮，結合多重分子量玻尿酸超微微脂體，迅速平撫粗糙紋理並牢固鎖水。';
+        recPlan.textContent = '早晚於精華液後取適量均勻塗抹於全臉及頸部，輕柔按摩吸收。';
+      } else {
+        // Default: Essence for brightening & dark spots
+        recImg.src = 'Product Demo 4.png';
+        recType.textContent = '精準透亮核心';
+        recName.textContent = 'LumiScience Essence (光感亮亮精華液)';
+        recDesc.textContent = 'Hyaluronic Acid 玻尿酸強效配搭高濃度 Niacinamide 煙醯胺，活性微囊提純技術阻斷暗沉，細緻毛孔。';
+        recPlan.textContent = '早晚潔面爽膚後取 3-4 滴於手心，均勻塗抹按壓至肌底吸收。';
+      }
+    }
+
+    function resetQuiz() {
+      quizAnswers = { skinType: '', skinGoal: '' };
+      document.getElementById('quizStepResult').classList.add('hidden');
+      document.getElementById('resultContent').classList.add('hidden');
+      document.getElementById('computingAnim').classList.remove('hidden');
+      document.getElementById('quizStep1').classList.remove('hidden');
+      
+      document.getElementById('quizStepPill').textContent = '步驟 1 / 2';
+      document.getElementById('quizStepTitle').textContent = '分析目前膚質基礎';
+      document.getElementById('stepDot2').classList.remove('bg-brand-accent');
+      document.getElementById('stepDot2').classList.add('bg-brand-primary/50');
+      document.getElementById('stepDot3').classList.remove('bg-brand-accent');
+      document.getElementById('stepDot3').classList.add('bg-brand-primary/50');
+
+      document.querySelectorAll('.quiz-opt-btn').forEach(b => {
+        b.classList.remove('ring-2', 'ring-brand-accent', 'bg-white');
+      });
+    }
+
+    /* -------------------------------------------------------------
+       5. Social Proof 3-Card Carousel Implementation
+    -------------------------------------------------------------- */
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const totalCards = 6;
+
+    function getVisibleCardCount() {
+      if (window.innerWidth >= 1024) return 3; // Desktop: exactly 3 cards
+      if (window.innerWidth >= 768) return 2;  // Tablet: 2 cards
+      return 1; // Mobile: 1 card
+    }
+
+    function getMaxIndex() {
+      return totalCards - getVisibleCardCount();
+    }
+
+    function updateCarousel() {
+      const visible = getVisibleCardCount();
+      const maxIdx = getMaxIndex();
+      if (currentSlide > maxIdx) currentSlide = maxIdx;
+      if (currentSlide < 0) currentSlide = 0;
+
+      const percentage = (100 / visible) * currentSlide;
+      track.style.transform = `translateX(-${percentage}%)`;
+
+      // Update dots
+      updateDots();
+    }
+
+    function updateDots() {
+      const container = document.getElementById('carouselIndicators');
+      container.innerHTML = '';
+      const maxIdx = getMaxIndex();
+      
+      for (let i = 0; i <= maxIdx; i++) {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all ${i === currentSlide ? 'w-7 bg-brand-accent' : 'bg-brand-primary/70 hover:bg-brand-secondary'}`;
+        dot.setAttribute('aria-label', `跳轉至評價第 ${i + 1} 組`);
+        dot.addEventListener('click', () => {
+          currentSlide = i;
+          updateCarousel();
+        });
+        container.appendChild(dot);
+      }
+    }
+
+    function initCarousel() {
+      document.getElementById('carouselPrev').addEventListener('click', () => {
+        currentSlide = Math.max(0, currentSlide - 1);
+        updateCarousel();
+      });
+      document.getElementById('carouselNext').addEventListener('click', () => {
+        currentSlide = Math.min(getMaxIndex(), currentSlide + 1);
+        updateCarousel();
+      });
+
+      window.addEventListener('resize', () => {
+        updateCarousel();
+      });
+
+      // Touch / Swipe Support on Carousel
+      let startX = 0;
+      track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      track.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) {
+            currentSlide = Math.min(getMaxIndex(), currentSlide + 1);
+          } else {
+            currentSlide = Math.max(0, currentSlide - 1);
+          }
+          updateCarousel();
+        }
+      });
+
+      updateCarousel();
+    }
+
+    /* -------------------------------------------------------------
+       6. Product Details Modal Data & Controller
+    -------------------------------------------------------------- */
+    const productData = {
+      p1: {
+        name: "LumiScience Glow Boosting Lotion (煥采亮澤乳液)",
+        capacity: "30ml e / 1.01 fl. oz.",
+        origin: "日本製造 (Made in Japan)",
+        image: "Product Demo 1.png",
+        natural: "嚴選高純度 Pearl Extract（珍珠萃取），富含微量元素與多肽，溫和提亮膚色，賦予肌膚自然母貝細緻光澤。",
+        tech: "採用高科技多重分子量 Hyaluronic Acid（玻尿酸）及超微微脂體包裹技術，將水補濕因子迅速壓導至肌底，長效鎖水並調理肌膚紋理。",
+        usage: "每日早晚於潔面及使用精華液後，取適量乳液均勻塗抹於面部與頸部，輕柔按摩至完全吸收。",
+        caution: "僅供外用。請避開眼睛周圍；若肌膚出現敏感或紅腫不適，請即停止使用並諮詢皮膚科醫生。"
+      },
+      p2: {
+        name: "LumiScience Aurora Research Series: Facial Mask (極光科研系列面膜)",
+        capacity: "30ml e / 1.01 fl. oz.（單片裝，每片承載 30ml 濃縮精華）",
+        origin: "日本製造 (Made in Japan)",
+        image: "Product Demo 2.png",
+        natural: "蘊含天然 Pearl Extract（珍珠萃取），深入肌底賦活沉悶膚色，還原肌膚原生透亮感。",
+        tech: "濃縮 Hyaluronic Acid（玻尿酸）配方，搭配高科技生物纖維極致貼合面膜布，完美密合臉部輪廓，形成密閉保濕壓導層，短時間充盈肌底水分。",
+        usage: "潔面及使用爽膚水後，將面膜平敷於面部 15 至 20 分鐘。取下面膜後輕拍殘留精華至完全吸收，無須沖洗。",
+        caution: "請置於陰涼乾燥處，避免陽光直射。肌膚有傷口、濕疹或發炎時切勿使用。單片開封後請即時使用。"
+      },
+      p3: {
+        name: "LumiScience Perfume (光感星砂香水)",
+        capacity: "50ml e / 1.7 fl. oz.",
+        origin: "日本製造 (Made in Japan)",
+        image: "Product Demo 3.png",
+        natural: "精選天然萃取 Fragrance Oils（植物精油）調配，帶來豐富且具層次感的奢華香氣體驗。",
+        tech: "結合高科技流沙懸浮微粒技術，將閃耀星砂懸浮於香水瓶中，噴灑時不僅散發持久香韻，更呈現極致夢幻的視覺饗宴。",
+        usage: "距離肌膚約 15–20 公分，適量噴灑於手腕、耳後及頸部等脈搏跳動處。",
+        caution: "含有 Alcohol Denat.（變性乙醇），屬易燃產品，請遠離火源及高溫；請勿直接噴向面部或眼睛；請放置於兒童無法觸及之處。"
+      },
+      p4: {
+        name: "LumiScience Essence (光感亮亮精華液)",
+        capacity: "30ml e / 1.01 fl. oz.",
+        origin: "日本製造 (Made in Japan)",
+        image: "Product Demo 4.png",
+        natural: "融入天然 Pearl Extract（珍珠萃取），為肌膚補充足夠活性養分，喚醒沉睡肌膚健康生命力。",
+        tech: "強效結合 Hyaluronic Acid（玻尿酸）與高濃度 Niacinamide（煙醯胺），運用活性微囊提純技術精密阻斷暗沉，細緻毛孔並顯著提升肌膚透明感。",
+        usage: "每日早晚潔面及爽膚後，使用滴管取 3–4 滴精華液於掌心，均勻塗抹於全臉及頸部，輕按至完全吸收。",
+        caution: "日間使用後請配合防曬產品。敏感性肌膚建議於首次使用前在耳後或手腕內側進行局部皮膚測試。"
+      }
+    };
+
+    function openProductModal(productId) {
+      const p = productData[productId];
+      if (!p) return;
+
+      const container = document.getElementById('modalDynamicBody');
+      container.innerHTML = `
+        <div class="flex items-center space-x-4 border-b border-brand-primary/30 pb-4">
+          <div class="w-20 h-20 bg-brand-primary/20 rounded-2xl p-1 shrink-0 flex items-center justify-center">
+            <img src="${p.image}" alt="${p.name}" class="h-full object-contain">
+          </div>
+          <div>
+            <span class="inline-block text-[11px] font-bold text-brand-accent bg-brand-primary/40 px-2 py-0.5 rounded-full mb-1">
+              ${p.origin}
+            </span>
+            <h3 id="modalProductName" class="text-xl font-bold text-brand-textPrimary leading-snug">${p.name}</h3>
+            <p class="text-xs text-brand-textSecondary mt-0.5">${p.capacity}</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 text-xs sm:text-sm">
+          <div>
+            <h4 class="font-bold text-brand-accent flex items-center mb-1">
+              <i class="fa-solid fa-seedling text-brand-secondary mr-2"></i>純天然萃取成分
+            </h4>
+            <p class="text-brand-textSecondary pl-5 leading-relaxed">${p.natural}</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-brand-accent flex items-center mb-1">
+              <i class="fa-solid fa-flask-vial text-brand-secondary mr-2"></i>高科技微囊專利
+            </h4>
+            <p class="text-brand-textSecondary pl-5 leading-relaxed">${p.tech}</p>
+          </div>
+
+          <div class="p-3.5 bg-brand-primary/20 rounded-xl border border-brand-primary/40">
+            <h4 class="font-bold text-brand-textPrimary flex items-center mb-1">
+              <i class="fa-solid fa-circle-info text-brand-accent mr-2"></i>使用方法步驟
+            </h4>
+            <p class="text-brand-textSecondary pl-5 leading-relaxed">${p.usage}</p>
+          </div>
+
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+            <h4 class="font-bold text-rose-800 flex items-center mb-1 text-xs">
+              <i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i>注意事項
+            </h4>
+            <p class="text-rose-700 text-xs pl-5 leading-relaxed">${p.caution}</p>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button onclick="closeProductModal()" class="px-6 py-2.5 rounded-full bg-brand-accent hover:bg-[#682c53] text-white text-xs font-bold transition-colors">
+            確認了解
+          </button>
+        </div>
+      `;
+
+      const modal = document.getElementById('productModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    /* -------------------------------------------------------------
+       7. General Modal & Toast Feedback System
+    -------------------------------------------------------------- */
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function showToast(message, isSuccess = true) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      const iconEl = document.getElementById('toastIcon');
+
+      msgEl.textContent = message;
+      if (isSuccess) {
+        iconEl.className = 'w-7 h-7 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm';
+        iconEl.innerHTML = '<i class="fa-solid fa-check"></i>';
+      } else {
+        iconEl.className = 'w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-sm';
+        iconEl.innerHTML = '<i class="fa-solid fa-info"></i>';
+      }
+
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const input = document.getElementById('newsletter-email');
+      if (input.value) {
+        showToast(`感謝訂閱！極光科研快訊已發送至 ${input.value}`);
+        input.value = '';
+      }
+    }
+
+    function handleGiftClaim(e) {
+      e.preventDefault();
+      const name = document.getElementById('gift-name').value;
+      closeModal('giftModal');
+      showToast(`恭喜 ${name}！專屬極光體驗禮遇登記成功，專員將盡快聯絡您。`);
+      e.target.reset();
+    }
+
+    // Keyboard ESC to close any open modal (A11y requirement)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProductModal();
+        closeModal('giftModal');
+      }
+    });
+  </script>
+</body>
+</html>
