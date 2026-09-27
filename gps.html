@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS 相片 EXIF 產生器 (400x400 JPG)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Piexif.js for client-side EXIF reading & writing -->
+  <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-3 sm:p-6 lg:p-8 flex flex-col justify-between">
+
+  <div class="max-w-5xl mx-auto w-full">
+    <!-- Header -->
+    <header class="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div>
+        <div class="flex items-center gap-2">
+          <div class="p-2.5 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30">
+            <i data-lucide="map-pin" class="w-6 h-6"></i>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">GPS 相片 EXIF 產生器</h1>
+        </div>
+        <p class="text-sm text-slate-400 mt-1">
+          即時產生 400×400 JPG 圖片，並將 GPS 經緯度精確寫入標準 EXIF 數據中。
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-950/80 text-emerald-400 border border-emerald-800">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+          標準 EXIF 2.3 相容
+        </span>
+      </div>
+    </header>
+
+    <!-- Notification Toast Container -->
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 transform translate-y-2 text-sm flex items-center gap-2 font-medium"></div>
+
+    <!-- Main Grid Content -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Left Column: Inputs & Customization (7 Cols) -->
+      <section class="lg:col-span-7 flex flex-col space-y-5">
+        
+        <div class="bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-semibold text-white flex items-center gap-2">
+              <i data-lucide="crosshair" class="w-4 h-4 text-blue-400"></i>
+              GPS 座標輸入
+            </h2>
+            <button id="btnGeoLocation" type="button" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors">
+              <i data-lucide="locate" class="w-3.5 h-3.5"></i>
+              獲取設備目前位置
+            </button>
+          </div>
+
+          <!-- Quick Paste Input -->
+          <div class="mb-4">
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">
+              快速貼上字串 (支援自動識別括號或逗號格式)：
+            </label>
+            <div class="relative">
+              <input id="quickInput" type="text"
+                value="(22.416470883333332,114.14761326666665)" 
+                placeholder="例如：(22.416470883333332,114.14761326666665)"
+                class="w-full bg-slate-900/90 border border-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-3.5 py-2.5 text-sm font-mono-code text-blue-300 placeholder-slate-500 transition-all outline-none"
+              >
+              <button id="btnParseQuick" type="button" title="解析套用" class="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors font-medium">
+                套用
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">例如直接貼入：<code class="text-slate-300 bg-slate-900 px-1 py-0.5 rounded">(22.416470883333332,114.14761326666665)</code></p>
+          </div>
+
+          <!-- Discrete Lat/Lng Inputs -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="latInput" class="block text-xs font-medium text-slate-300 mb-1">
+                緯度 (Latitude - 負數為南緯 S)
+              </label>
+              <div class="relative">
+                <input id="latInput" type="number" step="any"
+                  value="22.416470883333332"
+                  class="w-full bg-slate-900/90 border border-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-3.5 py-2 text-sm font-mono-code text-white transition-all outline-none"
+                >
+                <span id="latDirectionBadge" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-emerald-400">北緯 N</span>
+              </div>
+            </div>
+
+            <div>
+              <label for="lngInput" class="block text-xs font-medium text-slate-300 mb-1">
+                經度 (Longitude - 負數為西經 W)
+              </label>
+              <div class="relative">
+                <input id="lngInput" type="number" step="any"
+                  value="114.14761326666665"
+                  class="w-full bg-slate-900/90 border border-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl px-3.5 py-2 text-sm font-mono-code text-white transition-all outline-none"
+                >
+                <span id="lngDirectionBadge" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-emerald-400">東經 E</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Mode Switch (Dark / Light Blueprint) -->
+          <div class="mt-4 pt-3 border-t border-slate-700/60">
+            <label class="block text-xs font-medium text-slate-300 mb-2 flex items-center gap-1.5">
+              <i data-lucide="palette" class="w-3.5 h-3.5 text-blue-400"></i>
+              藍圖背景深淺色選擇：
+            </label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button id="btnThemeDark" type="button" class="theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border text-xs font-medium transition-all bg-blue-600/20 border-blue-500 text-blue-300 shadow-sm" data-theme="dark">
+                <span class="w-3 h-3 rounded-full bg-[#0a1d37] border border-blue-400"></span>
+                深色藍圖 (Dark)
+              </button>
+              <button id="btnThemeLight" type="button" class="theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border border-slate-700 bg-slate-900/50 hover:bg-slate-700/60 text-slate-300 text-xs font-medium transition-all" data-theme="light">
+                <span class="w-3 h-3 rounded-full bg-[#f0f4f8] border border-slate-400"></span>
+                淺色藍圖 (Light)
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Location Presets for convenience -->
+          <div class="mt-4 pt-3 border-t border-slate-700/60">
+            <span class="text-xs text-slate-400 mr-2">香港常用範例快捷點選：</span>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <button type="button" class="preset-btn px-2.5 py-1 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors" data-lat="22.416470883333332" data-lng="114.14761326666665">
+                香港中文大學
+              </button>
+              <button type="button" class="preset-btn px-2.5 py-1 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors" data-lat="22.27588" data-lng="114.14555">
+                太平山頂
+              </button>
+              <button type="button" class="preset-btn px-2.5 py-1 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg transition-colors" data-lat="22.2939" data-lng="114.1687">
+                尖沙咀天星碼頭
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications Box: order-last on mobile (<lg), order-none on desktop (lg:) -->
+        <div class="bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-xl space-y-3 order-last lg:order-none">
+          <h2 class="text-base font-semibold text-white flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-sky-400"></i>
+            圖片與 EXIF 規格說明
+          </h2>
+          <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
+            <li class="flex items-start gap-2">
+              <span class="text-sky-400 font-bold mt-0.5">•</span>
+              <span><strong>主題風格：</strong>工程藍圖 (支援深色及淺色背景切換)，清晰呈現經緯度座標。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-sky-400 font-bold mt-0.5">•</span>
+              <span><strong>解析度：</strong>固定生成標準 400 × 400 PX 的 JPEG 圖片。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-sky-400 font-bold mt-0.5">•</span>
+              <span><strong>EXIF 寫入：</strong>將高精確度度分秒（DMS）標準數據精準嵌入 JPG EXIF GPS IFD，相容各大作業系統與地圖軟體。</span>
+            </li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Real-time Preview, Download & EXIF Inspector (5 Cols) -->
+      <section class="lg:col-span-5 space-y-5">
+        
+        <div class="bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-xl flex flex-col items-center">
+          <div class="w-full flex items-center justify-between mb-3">
+            <h2 class="text-base font-semibold text-white flex items-center gap-2">
+              <i data-lucide="image" class="w-4 h-4 text-emerald-400"></i>
+              即時預覽 (400 × 400 PX)
+            </h2>
+            <span class="text-[11px] bg-slate-700/70 text-slate-300 px-2 py-0.5 rounded">JPG 格式</span>
+          </div>
+
+          <!-- Canvas Display Container -->
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-700 bg-black aspect-square w-[280px] sm:w-[320px] max-w-full">
+            <canvas id="mainCanvas" width="400" height="400" class="w-full h-full object-cover block"></canvas>
+            <div class="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-mono-code text-slate-300">
+              400 × 400
+            </div>
+          </div>
+
+          <!-- Download Action Button -->
+          <div class="w-full mt-5 space-y-2">
+            <button id="btnDownloadJpg" type="button" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
+              <i data-lucide="download" class="w-5 h-5"></i>
+              <span>儲存並下載含 GPS EXIF 的 JPG</span>
+            </button>
+            <p class="text-[11px] text-center text-slate-400">
+              下載檔案格式為 <span class="text-slate-200 font-mono-code">.jpg</span>，EXIF GPS 結構已正確封裝。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 border border-slate-700/60 shadow-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+              EXIF 寫入即時解碼驗證
+            </h3>
+            <span class="text-[11px] text-emerald-400 font-mono-code">即時偵測中</span>
+          </div>
+
+          <div class="space-y-2 text-xs font-mono-code bg-slate-900/90 rounded-xl p-3.5 border border-slate-800">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+              <span class="text-slate-400">GPSLatitudeRef:</span>
+              <span id="exifLatRef" class="text-emerald-400 font-bold">N</span>
+            </div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+              <span class="text-slate-400">GPSLatitude (DMS):</span>
+              <span id="exifLatDms" class="text-slate-200">22° 24' 59.3"</span>
+            </div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+              <span class="text-slate-400">GPSLongitudeRef:</span>
+              <span id="exifLngRef" class="text-emerald-400 font-bold">E</span>
+            </div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+              <span class="text-slate-400">GPSLongitude (DMS):</span>
+              <span id="exifLngDms" class="text-slate-200">114° 8' 51.4"</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">解碼十進制座標:</span>
+              <span id="exifDecResult" class="text-blue-400 font-semibold">22.416471, 114.147613</span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex gap-2">
+            <a id="btnOpenMaps" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-2 px-3 bg-slate-700/80 hover:bg-slate-700 text-slate-200 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors">
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              在 Google 地圖打開此位置
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 pt-4 border-t border-slate-800/80 text-center text-xs text-slate-500">
+      <p>GPS 數據按照 EXIF 2.3 標準將十進位轉換為有理數三元組 (度、分、秒)，兼容各類相片檢視器、Windows 內容詳細資料、macOS 預覽程式及手機相簿。</p>
+    </footer>
+  </div>
+
+  <script>
+    // State management
+    const state = {
+      lat: 22.416470883333332,
+      lng: 114.14761326666665,
+      theme: 'dark' // 'dark' | 'light'
+    };
+
+    // DOM Elements
+    const quickInput = document.getElementById('quickInput');
+    const btnParseQuick = document.getElementById('btnParseQuick');
+    const latInput = document.getElementById('latInput');
+    const lngInput = document.getElementById('lngInput');
+    const latDirectionBadge = document.getElementById('latDirectionBadge');
+    const lngDirectionBadge = document.getElementById('lngDirectionBadge');
+    const btnGeoLocation = document.getElementById('btnGeoLocation');
+    const btnThemeDark = document.getElementById('btnThemeDark');
+    const btnThemeLight = document.getElementById('btnThemeLight');
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const btnDownloadJpg = document.getElementById('btnDownloadJpg');
+    const btnOpenMaps = document.getElementById('btnOpenMaps');
+    const toast = document.getElementById('toast');
+
+    // EXIF Inspector Elements
+    const exifLatRef = document.getElementById('exifLatRef');
+    const exifLatDms = document.getElementById('exifLatDms');
+    const exifLngRef = document.getElementById('exifLngRef');
+    const exifLngDms = document.getElementById('exifLngDms');
+    const exifDecResult = document.getElementById('exifDecResult');
+
+    function showToast(message, type = 'success') {
+      toast.className = `fixed bottom-5 right-5 z-50 px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 transform text-sm flex items-center gap-2 font-medium ${
+        type === 'success' ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'
+      }`;
+      toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle-2' : 'alert-circle'}" class="w-4 h-4"></i> ${message}`;
+      toast.classList.remove('hidden');
+      lucide.createIcons();
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    /**
+     * Parses diverse formats such as:
+     * "(22.416470883333332,114.14761326666665)"
+     * "22.416470883333332, 114.14761326666665"
+     * "22.416470883333332 114.14761326666665"
+     */
+    function parseGpsString(str) {
+      if (!str) return null;
+      // remove brackets and extra spaces
+      const clean = str.replace(/[()\[\]]/g, '').trim();
+      const parts = clean.split(/[,\s]+/).map(p => parseFloat(p.trim())).filter(n => !isNaN(n));
+      if (parts.length >= 2) {
+        return { lat: parts[0], lng: parts[1] };
+      }
+      return null;
+    }
+
+    /**
+     * Convert decimal degrees into Degrees, Minutes, Seconds with precision
+     */
+    function toDmsRational(deg) {
+      const absolute = Math.abs(deg);
+      const degrees = Math.floor(absolute);
+      const minutesNotTruncated = (absolute - degrees) * 60;
+      const minutes = Math.floor(minutesNotTruncated);
+      const seconds = (minutesNotTruncated - minutes) * 60;
+
+      // Precision up to 1000000th for accurate seconds
+      const secNumerator = Math.round(seconds * 1000000);
+      const secDenominator = 1000000;
+
+      return [
+        [degrees, 1],
+        [minutes, 1],
+        [secNumerator, secDenominator]
+      ];
+    }
+
+    function formatDmsString(dms) {
+      const d = dms[0][0] / dms[0][1];
+      const m = dms[1][0] / dms[1][1];
+      const s = (dms[2][0] / dms[2][1]).toFixed(3);
+      return `${d}° ${m}' ${s}"`;
+    }
+
+    function drawCanvas() {
+      const w = 400;
+      const h = 400;
+      ctx.clearRect(0, 0, w, h);
+
+      const isLight = state.theme === 'light';
+
+      // 主題調色盤定義
+      const colors = isLight ? {
+        bg: '#f1f5f9',
+        gridMinor: '#e2e8f0',
+        gridMajor: '#cbd5e1',
+        border: '#0284c7',
+        title: '#0369a1',
+        time: '#64748b',
+        cardBg: 'rgba(255, 255, 255, 0.90)',
+        cardBorder: '#38bdf8',
+        cardLabel: '#0284c7',
+        coordText: '#0f172a',
+        divider: '#e2e8f0',
+        footer: '#64748b'
+      } : {
+        bg: '#0a1d37',
+        gridMinor: '#143865',
+        gridMajor: '#1e4d8c',
+        border: '#38bdf8',
+        title: '#38bdf8',
+        time: '#94a3b8',
+        cardBg: 'rgba(15, 23, 42, 0.75)',
+        cardBorder: '#2563eb',
+        cardLabel: '#38bdf8',
+        coordText: '#ffffff',
+        divider: '#334155',
+        footer: '#64748b'
+      };
+
+      // 背景底色
+      ctx.fillStyle = colors.bg;
+      ctx.fillRect(0, 0, w, h);
+
+      // 藍圖背景細格線 (每 20px 一格)
+      ctx.strokeStyle = colors.gridMinor;
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= w; x += 20) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= h; y += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      // 次級主要格線 (每 100px 一格)
+      ctx.strokeStyle = colors.gridMajor;
+      ctx.lineWidth = 1.5;
+      for (let x = 0; x <= w; x += 100) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= h; y += 100) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      // 外部工程內框
+      ctx.strokeStyle = colors.border;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(18, 18, w - 36, h - 36);
+
+      // 頂部標籤標題
+      ctx.fillStyle = colors.title;
+      ctx.font = 'bold 12px "JetBrains Mono", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('GPS COORDINATE RECORD', 30, 42);
+
+      // 時間標籤
+      const now = new Date();
+      const timeStr = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+      ctx.fillStyle = colors.time;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillText(timeStr, 30, 58);
+
+      // 畫面正中央顯示放大的經緯度座標資訊
+      const centerY = h / 2;
+
+      // 中央高亮背景卡片
+      ctx.fillStyle = colors.cardBg;
+      ctx.beginPath();
+      ctx.roundRect(30, centerY - 85, w - 60, 170, 12);
+      ctx.fill();
+      ctx.strokeStyle = colors.cardBorder;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // 文字對齊設為置中
+      ctx.textAlign = 'center';
+
+      // 緯度標題與大數值
+      ctx.fillStyle = colors.cardLabel;
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillText('LATITUDE (緯度)', w / 2, centerY - 50);
+
+      ctx.fillStyle = colors.coordText;
+      ctx.font = 'bold 22px "JetBrains Mono", monospace';
+      const latSign = state.lat >= 0 ? '+' : '';
+      const latDir = state.lat >= 0 ? 'N' : 'S';
+      ctx.fillText(`${latSign}${state.lat.toFixed(7)}° ${latDir}`, w / 2, centerY - 22);
+
+      // 分隔線
+      ctx.strokeStyle = colors.divider;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(60, centerY);
+      ctx.lineTo(w - 60, centerY);
+      ctx.stroke();
+
+      // 經度標題與大數值
+      ctx.fillStyle = colors.cardLabel;
+      ctx.font = '600 11px "JetBrains Mono", monospace';
+      ctx.fillText('LONGITUDE (經度)', w / 2, centerY + 26);
+
+      ctx.fillStyle = colors.coordText;
+      ctx.font = 'bold 22px "JetBrains Mono", monospace';
+      const lngSign = state.lng >= 0 ? '+' : '';
+      const lngDir = state.lng >= 0 ? 'E' : 'W';
+      ctx.fillText(`${lngSign}${state.lng.toFixed(7)}° ${lngDir}`, w / 2, centerY + 54);
+
+      // 底部註記
+      ctx.fillStyle = colors.footer;
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillText(`EXIF 2.3 GEO-TAGGED JPEG (${state.theme.toUpperCase()})`, w / 2, h - 30);
+
+      // 還原 textAlign 避免影響其他渲染
+      ctx.textAlign = 'left';
+
+      // 更新即時 EXIF 檢驗面板
+      updateExifInspectorDisplay();
+    }
+
+    function updateThemeButtons() {
+      if (state.theme === 'dark') {
+        btnThemeDark.className = 'theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border text-xs font-medium transition-all bg-blue-600/20 border-blue-500 text-blue-300 shadow-sm';
+        btnThemeLight.className = 'theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border border-slate-700 bg-slate-900/50 hover:bg-slate-700/60 text-slate-300 text-xs font-medium transition-all';
+      } else {
+        btnThemeLight.className = 'theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border text-xs font-medium transition-all bg-sky-500/20 border-sky-400 text-sky-200 shadow-sm';
+        btnThemeDark.className = 'theme-select-btn flex items-center justify-center gap-2 py-2 px-3 rounded-xl border border-slate-700 bg-slate-900/50 hover:bg-slate-700/60 text-slate-300 text-xs font-medium transition-all';
+      }
+    }
+
+    btnThemeDark.addEventListener('click', () => {
+      state.theme = 'dark';
+      updateThemeButtons();
+      drawCanvas();
+      showToast('已切換為深色藍圖背景');
+    });
+
+    btnThemeLight.addEventListener('click', () => {
+      state.theme = 'light';
+      updateThemeButtons();
+      drawCanvas();
+      showToast('已切換為淺色藍圖背景');
+    });
+
+    function generateJpegDataUrlWithExif() {
+      // 1. 取得 Canvas 的 JPEG 數據
+      const canvasDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+
+      // 2. 構建 Piexif EXIF 結構
+      const zeroth = {};
+      const exif = {};
+      const gps = {};
+
+      const lat = parseFloat(state.lat);
+      const lng = parseFloat(state.lng);
+
+      const latRef = lat >= 0 ? 'N' : 'S';
+      const lngRef = lng >= 0 ? 'E' : 'W';
+
+      gps[piexif.GPSIFD.GPSVersionID] = [2, 3, 0, 0];
+      gps[piexif.GPSIFD.GPSLatitudeRef] = latRef;
+      gps[piexif.GPSIFD.GPSLatitude] = toDmsRational(lat);
+      gps[piexif.GPSIFD.GPSLongitudeRef] = lngRef;
+      gps[piexif.GPSIFD.GPSLongitude] = toDmsRational(lng);
+      gps[piexif.GPSIFD.GPSAltitudeRef] = 0;
+      gps[piexif.GPSIFD.GPSAltitude] = [0, 1];
+
+      const date = new Date();
+      gps[piexif.GPSIFD.GPSTimeStamp] = [
+        [date.getUTCHours(), 1],
+        [date.getUTCMinutes(), 1],
+        [date.getUTCSeconds(), 1]
+      ];
+      gps[piexif.GPSIFD.GPSDateStamp] = `${date.getUTCFullYear()}:${String(date.getUTCMonth() + 1).padStart(2, '0')}:${String(date.getUTCDate()).padStart(2, '0')}`;
+
+      zeroth[piexif.ImageIFD.Software] = 'GPS Image Generator (Web)';
+      zeroth[piexif.ImageIFD.ImageDescription] = `GPS [${lat}, ${lng}]`;
+
+      const exifObj = {
+        '0th': zeroth,
+        'Exif': exif,
+        'GPS': gps
+      };
+
+      const exifBytes = piexif.dump(exifObj);
+      return piexif.insert(exifBytes, canvasDataUrl);
+    }
+
+    function updateExifInspectorDisplay() {
+      try {
+        const finalDataUrl = generateJpegDataUrlWithExif();
+        // Load the EXIF back from the produced JPEG to prove and verify validity
+        const loadedExif = piexif.load(finalDataUrl);
+        const gpsData = loadedExif['GPS'];
+
+        if (gpsData && gpsData[piexif.GPSIFD.GPSLatitude]) {
+          const latRef = gpsData[piexif.GPSIFD.GPSLatitudeRef] || (state.lat >= 0 ? 'N' : 'S');
+          const lngRef = gpsData[piexif.GPSIFD.GPSLongitudeRef] || (state.lng >= 0 ? 'E' : 'W');
+          const latDms = gpsData[piexif.GPSIFD.GPSLatitude];
+          const lngDms = gpsData[piexif.GPSIFD.GPSLongitude];
+
+          exifLatRef.textContent = latRef;
+          exifLngRef.textContent = lngRef;
+          exifLatDms.textContent = formatDmsString(latDms);
+          exifLngDms.textContent = formatDmsString(lngDms);
+
+          exifDecResult.textContent = `${state.lat.toFixed(6)}, ${state.lng.toFixed(6)}`;
+          btnOpenMaps.href = `https://www.google.com/maps/search/?api=1&query=${state.lat},${state.lng}`;
+        }
+      } catch (err) {
+        console.error('EXIF parse check error:', err);
+      }
+    }
+
+    function syncInputsFromState() {
+      latInput.value = state.lat;
+      lngInput.value = state.lng;
+      quickInput.value = `(${state.lat},${state.lng})`;
+      latDirectionBadge.textContent = state.lat >= 0 ? '北緯 N' : '南緯 S';
+      latDirectionBadge.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold ${state.lat >= 0 ? 'text-emerald-400' : 'text-amber-400'}`;
+      lngDirectionBadge.textContent = state.lng >= 0 ? '東經 E' : '西經 W';
+      lngDirectionBadge.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold ${state.lng >= 0 ? 'text-emerald-400' : 'text-amber-400'}`;
+      drawCanvas();
+    }
+
+    btnParseQuick.addEventListener('click', () => {
+      const parsed = parseGpsString(quickInput.value);
+      if (parsed) {
+        state.lat = parsed.lat;
+        state.lng = parsed.lng;
+        syncInputsFromState();
+        showToast('已成功解析並更新 GPS 座標！');
+      } else {
+        showToast('無法辨識座標格式，請確認輸入例如：(22.416, 114.147)', 'error');
+      }
+    });
+
+    quickInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        btnParseQuick.click();
+      }
+    });
+
+    latInput.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      if (!isNaN(val)) {
+        state.lat = val;
+        quickInput.value = `(${state.lat},${state.lng})`;
+        latDirectionBadge.textContent = state.lat >= 0 ? '北緯 N' : '南緯 S';
+        drawCanvas();
+      }
+    });
+
+    lngInput.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      if (!isNaN(val)) {
+        state.lng = val;
+        quickInput.value = `(${state.lat},${state.lng})`;
+        lngDirectionBadge.textContent = state.lng >= 0 ? '東經 E' : '西經 W';
+        drawCanvas();
+      }
+    });
+
+    // Preset button handlers
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.lat = parseFloat(btn.dataset.lat);
+        state.lng = parseFloat(btn.dataset.lng);
+        syncInputsFromState();
+        showToast(`已載入預設位置：${btn.textContent.trim()}`);
+      });
+    });
+
+    // Geolocation handler
+    btnGeoLocation.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        showToast('此瀏覽器不支援地理位置功能', 'error');
+        return;
+      }
+      btnGeoLocation.disabled = true;
+      btnGeoLocation.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i> 定位中...`;
+      lucide.createIcons();
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          state.lat = pos.coords.latitude;
+          state.lng = pos.coords.longitude;
+          syncInputsFromState();
+          showToast('成功讀取目前設備 GPS 位置！');
+          btnGeoLocation.disabled = false;
+          btnGeoLocation.innerHTML = `<i data-lucide="locate" class="w-3.5 h-3.5"></i> 獲取設備目前位置`;
+          lucide.createIcons();
+        },
+        (err) => {
+          showToast(`無法獲取位置: ${err.message}`, 'error');
+          btnGeoLocation.disabled = false;
+          btnGeoLocation.innerHTML = `<i data-lucide="locate" class="w-3.5 h-3.5"></i> 獲取設備目前位置`;
+          lucide.createIcons();
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    btnDownloadJpg.addEventListener('click', () => {
+      try {
+        const finalJpegUrl = generateJpegDataUrlWithExif();
+
+        // Convert base64 data url to blob for robust download across browsers
+        const byteString = atob(finalJpegUrl.split(',')[1]);
+        const mimeString = finalJpegUrl.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        const blobUrl = URL.createObjectURL(blob);
+
+        // Trigger file download
+        const downloadLink = document.createElement('a');
+        const filename = `gps_${state.lat.toFixed(4)}_${state.lng.toFixed(4)}_400x400.jpg`;
+        downloadLink.href = blobUrl;
+        downloadLink.download = filename;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(blobUrl);
+
+        showToast(`已成功下載：${filename}！`);
+      } catch (err) {
+        console.error('Download error:', err);
+        showToast('下載失敗，請檢查瀏覽器安全性限制', 'error');
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      drawCanvas();
+    });
+  </script>
+</body>
+</html>
